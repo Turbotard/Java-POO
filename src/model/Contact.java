@@ -38,4 +38,9 @@ public class Contact {
         }
 
     }
+    public static void afficherAll(){
+        for (Contact contact : contacteListe) {
+            Contact.afficherContact(contact._prenom, contact._nom);            
+        }
+    }
 }

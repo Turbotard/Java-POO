@@ -1,33 +1,30 @@
 package model;
+
 import java.util.Scanner;
 
 public class Menu {
     public static void displayMenu() {
-        System.out.println("1. Ajouter un contact");
-        System.out.println("2. Afficher les contacts");
-        System.out.println("q. Quitter le menu");
-
-        String input = getUserInput();
-        boolean isInputValid = true;
-
         do {
+            System.out.println("1. Ajouter un contact");
+            System.out.println("2. Afficher les contacts");
+            System.out.println("q. Quitter le menu");
+
+            String input = getUserInput();
+
             switch (input) {
                 case "1":
                     addContact();
-                    break;
+                    return;
                 case "2":
                     displayContacts();
-                    break;
+                    return;
                 case "q":
                     quit();
-                    break;
-                default:
-                    System.out.println("Veuillez entrer une option valide");
-                    isInputValid = false;
                     return;
-                    
+                default:
+                    System.out.println("Veuillez entrer une option valide \n");
             }
-        } while (!isInputValid);
+        } while (true);
     }
 
     public static String getUserInput() {

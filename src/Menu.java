@@ -8,18 +8,24 @@ public class Menu {
 
         String input = getUserInput();
 
-        while (!input.equals("1") && !input.equals("2") && !input.equals("q")) {
-            System.out.println("Veuillez entrer une option valide");
-            input = getUserInput();
-        }
-
-        if (input.equals("1")) {
-            addContact();
-        } else if (input.equals("2")) {
-            displayContacts();
-        } else if (input.equals("q")) {
-            quit();
-        }
+        boolean isInputValid = true;
+        do {
+            switch (input) {
+                case "1":
+                    addContact();
+                    break;
+                case "2":
+                    displayContacts();
+                    break;
+                case "q":
+                    quit();
+                    break;
+                default:
+                    System.out.println("Veuillez entrer une option valide");
+                    isInputValid = false;
+                    break;
+            }
+        } while (!isInputValid);
     }
 
     public static String getUserInput() {

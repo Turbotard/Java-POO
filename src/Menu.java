@@ -26,8 +26,6 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Entrez une option :");
         String userInput = scanner.nextLine();
-
-        System.out.println("Input : " + userInput + "\n");
         scanner.close();
         return userInput;
     }

@@ -1,19 +1,32 @@
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Contact {
-    String number;
-    String prenom;
-    String nom;
-    ArrayList<Contact> contacteListe = new ArrayList<Contact>();
+    public String number;
+    public String prenom;
+    public String nom;
+    static ArrayList<Contact> contacteListe = new ArrayList<Contact>();
 
-    public void Contact(String number_, String prenom_, String nom_){
+    Contact(String number_, String prenom_, String nom_) {
         number = number_;
         prenom = prenom_;
         nom = nom_;
-        contacteListe.add(this);
-        
+    }
+
+    public static void ajouterContact(Contact contact) {
+        contacteListe.add(contact);
+    }
+
+    public static void supprimerContact(Contact contact) {
+        contacteListe.remove(contact);
+    }
+
+    public static void afficherContact(String prenom_, String nom_) {
+        for (Contact contact : contacteListe) {
+            if (contact.nom.equals(nom_) || contact.nom.equals(prenom_)) {
+                System.out.println(contact.nom + " " + contact.prenom + " " + contact.number);
+                break;
+            }
+        }
+
     }
 }

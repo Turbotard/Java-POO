@@ -1,3 +1,4 @@
+package model;
 import java.util.ArrayList;
 
 public class Contact {
@@ -6,7 +7,7 @@ public class Contact {
     public String nom;
     static ArrayList<Contact> contacteListe = new ArrayList<Contact>();
 
-    Contact(String number_, String prenom_, String nom_) {
+    public Contact(String number_, String prenom_, String nom_) {
         number = number_;
         prenom = prenom_;
         nom = nom_;

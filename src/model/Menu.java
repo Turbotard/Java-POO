@@ -31,7 +31,6 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Entrez une option :");
         String userInput = scanner.nextLine();
-        scanner.close();
         return userInput;
     }
 

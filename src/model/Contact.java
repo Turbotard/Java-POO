@@ -11,7 +11,7 @@ public class Contact {
     private Date _date;
     private static ArrayList<Contact> contacteListe = new ArrayList<Contact>();
 
-    public Contact(String number, String prenom, String nom, String mail,Date date) {
+    public Contact(String number, String prenom, String nom, String mail, Date date) {
         _number = number;
         _prenom = prenom;
         _nom = nom;
@@ -19,23 +19,40 @@ public class Contact {
         _date = date;
     }
 
-    public static void ajouterContact(Contact contact) {
+    public static void addContact(Contact contact) {
         contacteListe.add(contact);
     }
 
-    public static void supprimerContact(Contact contact) {
+    public static void deleteContact(Contact contact) {
         contacteListe.remove(contact);
     }
 
-    public static void afficherContact(String prenom_, String nom_) {
+    public static void displaySpecificContact(String prenom, String nom, boolean optionalFlag) {
+        Contact contact = getContact(prenom, nom);
+        if (contact != null) {
+            displayContact(contact);
+            return;
+        }
+        System.out.println("Contact non trouvé");
+    }
+
+    static Contact getContact(String prenom, String nom) {
         for (Contact contact : contacteListe) {
-            if (contact._nom.equals(nom_) || contact._nom.equals(prenom_)) {
-                System.out.println(contact._nom + " " + contact._prenom + " " + contact._number+" "+contact._mail+" "+contact._date);
-                break;
-            } else {
-                System.out.println("Pas trouvé apprend à écrire ou recherche un contact qui existe !");
+            if (contact._prenom.equals(prenom) && contact._nom.equals(nom)) {
+                return contact;
             }
         }
+        return null;
+    }
 
+    static void displayContact(Contact contact) {
+        System.out.println(contact._nom + " " + contact._prenom + " " + contact._number + " " + contact._mail
+                + " " + contact._date);
+    }
+
+    public static void displayAllContacts() {
+        for (Contact contact : contacteListe) {
+            Contact.displayContact(contact);
+        }
     }
 }

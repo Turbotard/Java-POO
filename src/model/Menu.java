@@ -16,7 +16,7 @@ public class Menu {
                     addContact();
                     return;
                 case "2":
-                    displayContacts();
+                    Contact.displayAllContacts();
                     return;
                 case "q":
                     quit();

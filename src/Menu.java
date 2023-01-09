@@ -7,8 +7,8 @@ public class Menu {
         System.out.println("q. Quitter le menu");
 
         String input = getUserInput();
-
         boolean isInputValid = true;
+
         do {
             switch (input) {
                 case "1":

@@ -29,7 +29,7 @@ public class Contact {
 
     public static void afficherContact(String prenom_, String nom_) {
         for (Contact contact : contacteListe) {
-            if (contact._nom.equals(nom_) || contact._nom.equals(prenom_)) {
+            if (contact._nom.equals(nom_) && contact._nom.equals(prenom_)) {
                 System.out.println(contact._nom + " " + contact._prenom + " " + contact._number+" "+contact._mail+" "+contact._date);
                 break;
             } else {

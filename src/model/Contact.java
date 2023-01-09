@@ -27,13 +27,14 @@ public class Contact {
         contacteListe.remove(contact);
     }
 
-    public static void displaySpecificContact(String prenom, String nom, boolean optionalFlag) {
+    public static void displaySpecificContact(String prenom, String nom) {
         Contact contact = getContact(prenom, nom);
         if (contact != null) {
             displayContact(contact);
             return;
         }
-        System.out.println("Contact non trouvé");
+        System.out.println(
+                ConsoleColors.RED + "Contact du nom de " + prenom + " " + nom + " non trouvé \n" + ConsoleColors.RESET);
     }
 
     static Contact getContact(String prenom, String nom) {

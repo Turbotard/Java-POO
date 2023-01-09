@@ -11,7 +11,8 @@ public class App {
 
         Contact.addContact(contact1);
         Contact.addContact(contact2);
-        // Contact.displayContact("jiji", "lulu");
+
+        Contact.displaySpecificContact("bob", "lulu");
 
         Menu.displayMenu();
     }

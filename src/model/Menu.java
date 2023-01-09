@@ -13,7 +13,7 @@ public class Menu {
 
             switch (input) {
                 case "1":
-                    addContact();
+                    add();
                     return;
                 case "2":
                     Contact.displayAllContacts();
@@ -34,7 +34,7 @@ public class Menu {
         return userInput;
     }
 
-    public static void addContact() {
+    public static void add() {
         System.out.println("Contact ajouté");
     }
 

@@ -3,6 +3,6 @@ public class App {
         Menu.displayMenu();
         Contact contact1 = new Contact("123","jiji","lulu");
         Contact.ajouterContact(contact1);
-        Contact.afficherContact("jiji","lulu");
+        Contact.afficherContact("jiji","lu");
     }
 }

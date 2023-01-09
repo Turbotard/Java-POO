@@ -25,6 +25,8 @@ public class Contact {
             if (contact.nom.equals(nom_) || contact.nom.equals(prenom_)) {
                 System.out.println(contact.nom + " " + contact.prenom + " " + contact.number);
                 break;
+            } else {
+                System.out.println("Pas trouvé apprend à écrire ou recherche un contact qui existe !");
             }
         }
 

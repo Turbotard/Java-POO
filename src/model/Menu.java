@@ -24,7 +24,8 @@ public class Menu {
                 default:
                     System.out.println("Veuillez entrer une option valide");
                     isInputValid = false;
-                    break;
+                    return;
+                    
             }
         } while (!isInputValid);
     }

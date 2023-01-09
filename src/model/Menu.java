@@ -39,7 +39,7 @@ public class Menu {
     }
 
     public static void displayContacts() {
-        Contact.afficherAll();
+        Contact.displayAllContacts();
     }
 
     public static void quit() {

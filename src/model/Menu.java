@@ -154,8 +154,8 @@ public class Menu {
     }
 
     public static void displayContact(Contact contact) {
-        String contacString = contact.toString();
-        System.out.println(contacString);
+        String contactString = contact.toString();
+        System.out.println(contactString);
     }
 
     public static void displayAllContacts() {

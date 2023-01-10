@@ -9,7 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class Menu {
-    public static void displayMenu() {
+    public static void displayMenu() throws ParseException {
         do {
             System.out.println("  -- Menu --");
             System.out.println("1. Ajouter un contact");
@@ -39,7 +39,7 @@ public class Menu {
         return userInput;
     }
 
-    public static void createContact() {
+    public static void createContact() throws ParseException {
         Pattern pat = Pattern.compile("^(?:(?:\\+|00)33|0)\\s*[1-9](?:[\\s.-]*\\d{2}){4}$");
         Date currentDate = new Date(12 - 12 - 2004);
         System.out.println("Entrez le prenom du contact :");
@@ -50,9 +50,10 @@ public class Menu {
         String numero = getUserInput();
         Matcher matcher = pat.matcher(numero);
         if (matcher.matches()){
-            
+            numero = numero;
         }else{
-            numero = null;
+            ParseException e =new ParseException("Le format est incorect", 0);
+            throw e;
         }
 
 

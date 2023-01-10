@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -97,7 +98,7 @@ public class Contact {
         + ";" + contact._birthday;
     }
 
-    public static void displayAllContacts() {
+    public static void displayAllContacts() throws ParseException {
         try (BufferedReader br = new BufferedReader(new FileReader("contacts.csv"))) {
             String line;
             while ((line = br.readLine()) != null) {

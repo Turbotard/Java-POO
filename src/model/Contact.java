@@ -11,6 +11,8 @@ public class Contact {
     private static final String PHONE_NUMBER_PATTERN = "(0|\\+33|0033)[1-9][0-9]{8}";
     private static final String MAIL_PATTERN = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
+    private static final String SEPARATEUR = ";";
+
     public static ArrayList<Contact> contactList = new ArrayList<Contact>();
 
     private String _firstname;
@@ -80,17 +82,15 @@ public class Contact {
     public String toString() {
         StringBuilder build = new StringBuilder();
         build.append(this.getFirstname());
-        build.append(";");
+        build.append(SEPARATEUR);
         build.append(this.getLastname());
-        build.append(";");
+        build.append(SEPARATEUR);
         build.append(this.getNumber());
-        build.append(";");
+        build.append(SEPARATEUR);
         build.append(this.getMail());
-        build.append(";");
+        build.append(SEPARATEUR);
         build.append(this.getBirthday());
-        
 
         return build.toString();
-        // return super.toString();
     }
 }

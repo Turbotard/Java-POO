@@ -13,6 +13,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Menu {
+    public static Map<String, String> MONTHS = new HashMap<String, String>() {
+        {
+            put("Jan", "1");
+            put("Feb", "2");
+            put("Mar", "3");
+            put("Apr", "4");
+            put("May", "5");
+            put("Jun", "6");
+            put("Jul", "7");
+            put("Aug", "8");
+            put("Sep", "9");
+            put("Oct", "10");
+            put("Nov", "11");
+            put("Dec", "12");
+
+        }
+    };
+
     public static void displayMenu() throws ParseException {
         do {
             System.out.println(ConsoleColors.GREEN + "  -- Menu --");
@@ -162,6 +180,14 @@ public class Menu {
     }
 
     public static void displayAllContacts() {
+        csvToContactList();
+
+        for (Contact contact : Contact.contactList) {
+            displayContact(contact);
+        }
+    }
+
+    static void csvToContactList() {
         try (BufferedReader br = new BufferedReader(new FileReader("contacts.csv"))) {
             String line;
             int lineNumber = 1;
@@ -173,23 +199,9 @@ public class Menu {
                 String number = fields[2];
                 String mail = fields[3];
 
-                Map<String, String> MONTHS = new HashMap<String, String>();
-                MONTHS.put("Jan", "1");
-                MONTHS.put("Feb", "2");
-                MONTHS.put("Mar", "3");
-                MONTHS.put("Apr", "4");
-                MONTHS.put("May", "5");
-                MONTHS.put("Jun", "6");
-                MONTHS.put("Jul", "7");
-                MONTHS.put("Aug", "8");
-                MONTHS.put("Sep", "9");
-                MONTHS.put("Oct", "10");
-                MONTHS.put("Nov", "11");
-                MONTHS.put("Dec", "12");
-
                 String[] date = fields[4].split(" ");
                 String day = date[2];
-                String month = MONTHS.get(date[1]);
+                String month = Menu.MONTHS.get(date[1]);
                 String year = date[5];
 
                 StringBuilder build = new StringBuilder();
@@ -216,10 +228,6 @@ public class Menu {
                     System.out.println(ConsoleColors.RED + "Le contact ligne " + lineNumber + " n'a pas pu être lu"
                             + ConsoleColors.DEFAULT);
                 }
-            }
-
-            for (Contact contact : Contact.contactList) {
-                displayContact(contact);
             }
 
         } catch (IOException e) {

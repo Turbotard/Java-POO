@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.text.ParseException;
 
 import java.io.BufferedReader;
@@ -11,7 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Menu {
-    public static void displayMenu() {
+    public static void displayMenu() throws ParseException {
         do {
             System.out.println("  -- Menu --");
             System.out.println("1. Ajouter un contact");

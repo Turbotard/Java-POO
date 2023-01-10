@@ -1,6 +1,10 @@
 package model;
 
 import java.util.Scanner;
+import java.text.ParseException;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class Menu {
     public static void displayMenu() {
@@ -13,8 +17,7 @@ public class Menu {
 
             switch (input) {
                 case "1":
-                    add();
-                    return;
+                    createContact();
                 case "2":
                     Contact.displayAllContacts();
                     return;
@@ -29,20 +32,46 @@ public class Menu {
 
     public static String getUserInput() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Entrez une option :");
         String userInput = scanner.nextLine();
         return userInput;
     }
 
-    public static void add() {
-        System.out.println("Contact ajouté");
-    }
+    public static void createContact() {
+        Date currentDate = new Date(12 - 12 - 2004);
+        System.out.println("Entrez le prenom du contact :");
+        String prenom = getUserInput();
+        System.out.println("Entrez le nom du contact :");
+        String nom = getUserInput();
+        System.out.println("Entrez le numero du contact :");
+        String numero = getUserInput();
+        System.out.println("Entrez le mail du contact :");
+        String mail = getUserInput();
 
-    public static void displayContacts() {
-        Contact.displayAllContacts();
+        do {
+            try {
+                System.out.println("Entrez la date de naissance du contact :");
+                String date = getUserInput();
+                Date birthday = getDate(date);
+
+                Contact contact = new Contact(numero, prenom, nom, mail, birthday);
+                Contact.addToContactList(contact);
+                break;
+            } catch (ParseException e) {
+                System.out.println("La date doit avoir le format jj/mm/aaaa");
+            }
+        } while (true);
+
+        Menu.displayMenu();
     }
 
     public static void quit() {
         System.out.println("Au revoir");
+    }
+
+    public static Date getDate(String dateString) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+        Date date = dateFormat.parse(dateString);
+
+        return date;
     }
 }

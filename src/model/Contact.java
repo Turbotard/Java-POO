@@ -8,23 +8,23 @@ public class Contact {
     private String _prenom;
     private String _nom;
     private String _mail;
-    private Date _date;
-    private static ArrayList<Contact> contacteListe = new ArrayList<Contact>();
+    private Date _birthday;
+    private static ArrayList<Contact> contactList = new ArrayList<Contact>();
 
     public Contact(String number, String prenom, String nom, String mail, Date date) {
         _number = number;
         _prenom = prenom;
         _nom = nom;
         _mail = mail;
-        _date = date;
+        _birthday = date;
     }
 
-    public static void addContact(Contact contact) {
-        contacteListe.add(contact);
+    public static void addToContactList(Contact contact) {
+        contactList.add(contact);
     }
 
     public static void deleteContact(Contact contact) {
-        contacteListe.remove(contact);
+        contactList.remove(contact);
     }
 
     public static void displaySpecificContact(String prenom, String nom) {
@@ -38,7 +38,7 @@ public class Contact {
     }
 
     static Contact getContact(String prenom, String nom) {
-        for (Contact contact : contacteListe) {
+        for (Contact contact : contactList) {
             if (contact._prenom.equals(prenom) && contact._nom.equals(nom)) {
                 return contact;
             }
@@ -48,12 +48,13 @@ public class Contact {
 
     static void displayContact(Contact contact) {
         System.out.println(contact._nom + " " + contact._prenom + " " + contact._number + " " + contact._mail
-                + " " + contact._date);
+                + " " + contact._birthday);
     }
 
     public static void displayAllContacts() {
-        for (Contact contact : contacteListe) {
+        for (Contact contact : contactList) {
             Contact.displayContact(contact);
         }
+        Menu.displayMenu();
     }
 }

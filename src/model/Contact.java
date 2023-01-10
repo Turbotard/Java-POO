@@ -1,89 +1,78 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.IOException;
-
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class Contact {
+    private static final String PHONE_NUMBER_PATTERN = null;
+    public static ArrayList<Contact> contactList = new ArrayList<Contact>();
+
+    private String _firstname;
+    private String _lastname;
     private String _number;
-    private String _prenom;
-    private String _nom;
     private String _mail;
     private Date _birthday;
-    private static ArrayList<Contact> contactList = new ArrayList<Contact>();
 
-    public Contact(String number, String prenom, String nom, String mail, Date date) {
-        _number = number;
-        _prenom = prenom;
-        _nom = nom;
-        _mail = mail;
-        _birthday = date;
+    public String getNumber() {
+        return _number;
     }
 
-    public static void addToContactList(Contact contact) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv"))) {
-            String contacString = getContactToString(contact);
-            bw.write(contacString);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void setNumber(String _number) throws ParseException {
+        Pattern pat = Pattern.compile(
+                "(0|\\+33|0033)[1-9][0-9]{8}");
+        Matcher matcher = pat.matcher(_number);
+
+        if (matcher.matches()) {
+            this._number = _number;
+        } else {
+            ParseException e = new ParseException("numéro invalide", 0);
+            throw e;
         }
-
-        contactList.add(contact);
     }
 
-    public static void deleteContact(Contact contact) {
-        contactList.remove(contact);
+    public String getFirstname() {
+        return _firstname;
     }
 
-    public static void displaySpecificContact(String prenom, String nom) {
-        Contact contact = getContact(prenom, nom);
-        if (contact != null) {
-            displayContact(contact);
-            return;
+    public void setFirstname(String _prenom) {
+        this._firstname = _prenom;
+    }
+
+    public String getLastname() {
+        return _lastname;
+    }
+
+    public void setLastname(String _nom) {
+        this._lastname = _nom;
+    }
+
+    public String getMail() {
+        return _mail;
+    }
+
+    public void setMail(String _mail) throws ParseException {
+        Pattern pat = Pattern.compile(
+                "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
+        Matcher matcher = pat.matcher(_mail);
+
+        if (matcher.matches()) {
+            this._mail = _mail;
+        } else {
+            ParseException e = new ParseException("email invalide", 0);
+            throw e;
         }
-        System.out.println(
-                ConsoleColors.RED + "Contact du nom de " + prenom + " " + nom + " non trouvé \n" + ConsoleColors.RESET);
     }
 
-    static Contact getContact(String prenom, String nom) {
-        for (Contact contact : contactList) {
-            if (contact._prenom.equals(prenom) && contact._nom.equals(nom)) {
-                return contact;
-            }
-        }
-        return null;
+    public Date getBirthday() {
+        return _birthday;
     }
 
-    public static void displayContact(Contact contact) {
-        String contacString = getContactToString(contact);
-        System.out.println(contacString);
-    }
-
-    public static String getContactToString(Contact contact) {
-        return contact._nom + " " + contact._prenom + " " + contact._number + " " + contact._mail
-                + " " + contact._birthday;
-    }
-
-    public static void displayAllContacts() {
-        for (Contact contact : contactList) {
-            Contact.displayContact(contact);
-        }
-
-        try (BufferedReader bw = new BufferedReader(new FileReader("contacts.csv"))) {
-
-        } catch (IOException e) {
-
-        }
-
-        Menu.displayMenu();
+    public void setBirthday(String _birthday) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        this._birthday = dateFormat.parse(_birthday);
     }
 }

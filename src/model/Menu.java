@@ -2,9 +2,13 @@ package model;
 
 import java.util.Scanner;
 import java.text.ParseException;
-import java.util.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Menu {
     public static void displayMenu() {
@@ -21,13 +25,14 @@ public class Menu {
                     createContact();
                     break;
                 case "2":
-                    Contact.displayAllContacts();
+                    displayAllContacts();
                     break;
                 case "q":
                     quit();
                     return;
                 default:
                     System.out.println("Veuillez entrer une option valide \n");
+                    break;
             }
         } while (true);
     }
@@ -39,41 +44,136 @@ public class Menu {
     }
 
     public static void createContact() {
-        Date currentDate = new Date(12 - 12 - 2004);
+        Contact contact = new Contact();
+
         System.out.println("Entrez le prenom du contact :");
-        String prenom = getUserInput();
+        String firsnameInput = getUserInput();
+        contact.setFirstname(firsnameInput);
+
         System.out.println("Entrez le nom du contact :");
-        String nom = getUserInput();
-        System.out.println("Entrez le numero du contact :");
-        String numero = getUserInput();
-        System.out.println("Entrez le mail du contact :");
-        String mail = getUserInput();
+        String lastnameInput = getUserInput();
+        contact.setLastname(lastnameInput);
 
         do {
             try {
-                System.out.println("Entrez la date de naissance du contact :");
-                String date = getUserInput();
-                Date birthday = getDate(date);
+                System.out.println("Entrez le numero du contact :");
+                String numberInput = getUserInput();
+                contact.setNumber(numberInput);
 
-                Contact contact = new Contact(numero, prenom, nom, mail, birthday);
-                Contact.addToContactList(contact);
                 break;
             } catch (ParseException e) {
-                System.out.println("La date doit avoir le format jj/mm/aaaa");
+                System.out.println(ConsoleColors.RED + "Le format du numéro est incorrect" + ConsoleColors.DEFAULT);
             }
         } while (true);
 
-        Menu.displayMenu();
+        do {
+            try {
+                System.out.println("Entrez le mail du contact :");
+                String mailInput = getUserInput();
+                contact.setMail(mailInput);
+
+                break;
+            } catch (ParseException e) {
+                System.out.println(ConsoleColors.RED + "Le format du mail est incorrect" + ConsoleColors.DEFAULT);
+            }
+        } while (true);
+
+        do {
+            try {
+                System.out.println("Entrez la de naissance du contact dans le format jj/mm/aaaa :");
+                String birthdayInput = getUserInput();
+                contact.setBirthday(birthdayInput);
+
+                break;
+            } catch (ParseException e) {
+                System.out.println(ConsoleColors.RED + "Le format de la date est incorrect" + ConsoleColors.DEFAULT);
+            }
+        } while (true);
+
+        addToContactList(contact);
     }
 
     public static void quit() {
-        System.out.println("Au revoir");
+        System.out.println(ConsoleColors.RED + "Fermetur du menu..." + ConsoleColors.DEFAULT);
     }
 
-    public static Date getDate(String dateString) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-        Date date = dateFormat.parse(dateString);
+    public static void addToContactList(Contact contact) {
+        try (PrintWriter bw = new PrintWriter(new BufferedWriter(new FileWriter("contacts.csv", true)))) {
+            String contacString = getContactToString(contact);
+            bw.println(contacString);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        return date;
+        Contact.contactList.add(contact);
+    }
+
+    public static void deleteContact(String firstName, String lastName) {
+        Contact contactToRemove = null;
+        for (Contact contact : Contact.contactList) {
+            if (contact.getFirstname().equals(firstName) && contact.getLastname().equals(lastName)) {
+                contactToRemove = contact;
+                break;
+            }
+        }
+        if (contactToRemove != null) {
+            Contact.contactList.remove(contactToRemove);
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv"))) {
+                for (Contact contact : Contact.contactList) {
+                    String contactString = getContactToString(contact);
+                    bw.write(contactString);
+                    bw.newLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("The contact " + firstName + " " + lastName + " does not exist.");
+        }
+    }
+
+    public static void displaySpecificContact(String prenom, String nom) {
+        Contact contact = getContact(prenom, nom);
+        if (contact != null) {
+            displayContact(contact);
+            return;
+        }
+        System.out.println(
+                ConsoleColors.RED + "Contact du nom de " + prenom + " " + nom + " non trouvé \n"
+                        + ConsoleColors.DEFAULT);
+    }
+
+    static Contact getContact(String prenom, String nom) {
+        for (Contact contact : Contact.contactList) {
+            if (contact.getFirstname().equals(prenom) && contact.getLastname().equals(nom)) {
+                return contact;
+            }
+        }
+        return null;
+    }
+
+    public static void displayContact(Contact contact) {
+        String contacString = getContactToString(contact);
+        System.out.println(contacString);
+    }
+
+    public static String getContactToString(Contact contact) {
+        return contact.getFirstname() + ";" + contact.getLastname() + ";" + contact.getNumber() + ";"
+                + contact.getMail()
+                + ";" + contact.getBirthday();
+    }
+
+    public static void displayAllContacts() {
+        try (BufferedReader br = new BufferedReader(new FileReader("contacts.csv"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(";");
+                String lastName = fields[0];
+                String firstName = fields[1];
+                System.out.println("Nom : " + lastName + ", Prénom : " + firstName);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

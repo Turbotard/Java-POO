@@ -75,4 +75,12 @@ public class Contact {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         this._birthday = dateFormat.parse(_birthday);
     }
+
+    @Override
+    public String toString() {
+        return contact.getFirstname() + ";" + contact.getLastname() + ";" + contact.getNumber() + ";"
+                + contact.getMail()
+                + ";" + contact.getBirthday();
+        // return super.toString();
+    }
 }

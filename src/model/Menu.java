@@ -99,7 +99,7 @@ public class Menu {
 
     public static void addToContactList(Contact contact) {
         try (PrintWriter bw = new PrintWriter(new BufferedWriter(new FileWriter("contacts.csv", true)))) {
-            String contacString = getContactToString(contact);
+            String contacString = contact.toString();
             bw.println(contacString);
         } catch (IOException e) {
             e.printStackTrace();
@@ -120,7 +120,7 @@ public class Menu {
             Contact.contactList.remove(contactToRemove);
             try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv"))) {
                 for (Contact contact : Contact.contactList) {
-                    String contactString = getContactToString(contact);
+                    String contactString = contact.toString();
                     bw.write(contactString);
                     bw.newLine();
                 }
@@ -153,14 +153,8 @@ public class Menu {
     }
 
     public static void displayContact(Contact contact) {
-        String contacString = getContactToString(contact);
+        String contacString = contact.toString();
         System.out.println(contacString);
-    }
-
-    public static String getContactToString(Contact contact) {
-        return contact.getFirstname() + ";" + contact.getLastname() + ";" + contact.getNumber() + ";"
-                + contact.getMail()
-                + ";" + contact.getBirthday();
     }
 
     public static void displayAllContacts() {

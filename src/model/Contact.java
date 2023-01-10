@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class Contact {
+    private static final String NAME_PATTERN = "^[a-zA-Z]+(([\\'\\,\\.\\-][a-zA-Z])?[a-zA-Z]*)*$";
     private static final String PHONE_NUMBER_PATTERN = "(0|\\+33|0033)[1-9][0-9]{8}";
     private static final String MAIL_PATTERN = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
@@ -26,31 +27,33 @@ public class Contact {
     }
 
     public void setNumber(String _number) throws ParseException {
-        Pattern pat = Pattern.compile(PHONE_NUMBER_PATTERN);
-        Matcher matcher = pat.matcher(_number);
+        this._number = CustomUtils.matchValue(_number, PHONE_NUMBER_PATTERN, "numéro invalide");
+        // Pattern pat = Pattern.compile(PHONE_NUMBER_PATTERN);
+        // Matcher matcher = pat.matcher(_number);
 
-        if (matcher.matches()) {
-            this._number = _number;
-        } else {
-            ParseException e = new ParseException("numéro invalide", 0);
-            throw e;
-        }
+        // if (matcher.matches()) {
+        // this._number = _number;
+        // } else {
+        // ParseException e = new ParseException("numéro invalide", 0);
+        // throw e;
+        // }
+
     }
 
     public String getFirstname() {
         return _firstname;
     }
 
-    public void setFirstname(String _prenom) {
-        this._firstname = _prenom;
+    public void setFirstname(String _prenom) throws ParseException {
+        this._firstname = CustomUtils.matchValue(_prenom, NAME_PATTERN, "prénom invalide");
     }
 
     public String getLastname() {
         return _lastname;
     }
 
-    public void setLastname(String _nom) {
-        this._lastname = _nom;
+    public void setLastname(String _nom) throws ParseException {
+        this._lastname = CustomUtils.matchValue(_nom, NAME_PATTERN, "nom invalide");
     }
 
     public String getMail() {
@@ -58,15 +61,16 @@ public class Contact {
     }
 
     public void setMail(String _mail) throws ParseException {
-        Pattern pat = Pattern.compile(MAIL_PATTERN);
-        Matcher matcher = pat.matcher(_mail);
+        this._mail = CustomUtils.matchValue(_mail, MAIL_PATTERN, "email invalide");
+        // Pattern pat = Pattern.compile(MAIL_PATTERN);
+        // Matcher matcher = pat.matcher(_mail);
 
-        if (matcher.matches()) {
-            this._mail = _mail;
-        } else {
-            ParseException e = new ParseException("email invalide", 0);
-            throw e;
-        }
+        // if (matcher.matches()) {
+        // this._mail = _mail;
+        // } else {
+        // ParseException e = new ParseException("email invalide", 0);
+        // throw e;
+        // }
     }
 
     public Date getBirthday() {

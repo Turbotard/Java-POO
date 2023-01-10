@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class Menu {
     public static Map<String, String> MONTHS = new HashMap<String, String>() {
@@ -68,13 +69,37 @@ public class Menu {
     public static void createContact() {
         Contact contact = new Contact();
 
-        System.out.println("Entrez le prénom du contact :");
-        String firsnameInput = getUserInput();
-        contact.setFirstname(firsnameInput);
+        do {
+            try {
+                System.out.println("Entrez le prénom du contact :");
+                String firsnameInput = getUserInput();
+                contact.setFirstname(firsnameInput);
 
-        System.out.println("Entrez le nom du contact :");
-        String lastnameInput = getUserInput();
-        contact.setLastname(lastnameInput);
+                break;
+            } catch (ParseException e) {
+                System.out.println(ConsoleColors.RED + "Le format du prénom est incorrect" +
+                        ConsoleColors.DEFAULT);
+            }
+        } while (true);
+        // try {
+        // test("Entrez le prénom du contact :", contact::setMail, "Le format du prénom
+        // est incorrect");
+        // } catch (ParseException e) {
+        // System.out.println(ConsoleColors.RED + "Le format du nom est incorrect" +
+        // ConsoleColors.DEFAULT);
+        // }
+
+        do {
+            try {
+                System.out.println("Entrez le nom du contact :");
+                String lastnameInput = getUserInput();
+                contact.setLastname(lastnameInput);
+
+                break;
+            } catch (ParseException e) {
+                System.out.println(ConsoleColors.RED + "Le format du nom est incorrect" + ConsoleColors.DEFAULT);
+            }
+        } while (true);
 
         do {
             try {
@@ -113,6 +138,20 @@ public class Menu {
         } while (true);
 
         addToContactList(contact);
+    }
+
+    public static void test(String message, Consumer<String> function, String errorMessage) throws Exception {
+        do {
+            try {
+                System.out.println(message);
+                String input = getUserInput();
+                function.accept(input);
+
+                break;
+            } catch (Exception e) {
+                System.out.println(ConsoleColors.RED + errorMessage + ConsoleColors.DEFAULT);
+            }
+        } while (true);
     }
 
     public static void quit() {

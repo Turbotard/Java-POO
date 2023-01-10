@@ -39,7 +39,7 @@ public class Menu {
             System.out.println("2. Afficher les contacts");
             System.out.println("q. Quitter le menu" + ConsoleColors.DEFAULT);
 
-            String input = getUserInput();
+            String input = CustomUtils.getUserInput();
 
             switch (input) {
                 case "1":
@@ -60,39 +60,25 @@ public class Menu {
         } while (true);
     }
 
-    public static String getUserInput() {
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
-        return userInput;
-    }
-
     public static void createContact() {
         Contact contact = new Contact();
 
         do {
             try {
                 System.out.println("Entrez le prénom du contact :");
-                String firsnameInput = getUserInput();
+                String firsnameInput = CustomUtils.getUserInput();
                 contact.setFirstname(firsnameInput);
 
                 break;
             } catch (ParseException e) {
-                System.out.println(ConsoleColors.RED + "Le format du prénom est incorrect" +
-                        ConsoleColors.DEFAULT);
+                System.out.println(ConsoleColors.RED + "Le format du prénom est incorrect" + ConsoleColors.DEFAULT);
             }
         } while (true);
-        // try {
-        // test("Entrez le prénom du contact :", contact::setMail, "Le format du prénom
-        // est incorrect");
-        // } catch (ParseException e) {
-        // System.out.println(ConsoleColors.RED + "Le format du nom est incorrect" +
-        // ConsoleColors.DEFAULT);
-        // }
 
         do {
             try {
                 System.out.println("Entrez le nom du contact :");
-                String lastnameInput = getUserInput();
+                String lastnameInput = CustomUtils.getUserInput();
                 contact.setLastname(lastnameInput);
 
                 break;
@@ -104,7 +90,7 @@ public class Menu {
         do {
             try {
                 System.out.println("Entrez le numéro du contact :");
-                String numberInput = getUserInput();
+                String numberInput = CustomUtils.getUserInput();
                 contact.setNumber(numberInput);
 
                 break;
@@ -116,7 +102,7 @@ public class Menu {
         do {
             try {
                 System.out.println("Entrez le mail du contact :");
-                String mailInput = getUserInput();
+                String mailInput = CustomUtils.getUserInput();
                 contact.setMail(mailInput);
 
                 break;
@@ -128,7 +114,7 @@ public class Menu {
         do {
             try {
                 System.out.println("Entrez la date de naissance du contact dans le format jj/mm/aaaa :");
-                String birthdayInput = getUserInput();
+                String birthdayInput = CustomUtils.getUserInput();
                 contact.setBirthday(birthdayInput);
 
                 break;
@@ -138,20 +124,6 @@ public class Menu {
         } while (true);
 
         addToContactList(contact);
-    }
-
-    public static void test(String message, Consumer<String> function, String errorMessage) throws Exception {
-        do {
-            try {
-                System.out.println(message);
-                String input = getUserInput();
-                function.accept(input);
-
-                break;
-            } catch (Exception e) {
-                System.out.println(ConsoleColors.RED + errorMessage + ConsoleColors.DEFAULT);
-            }
-        } while (true);
     }
 
     public static void quit() {

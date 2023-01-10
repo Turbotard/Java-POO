@@ -22,30 +22,12 @@ public class Contact {
     private String _mail;
     private Date _birthday;
 
-    public String getNumber() {
-        return _number;
-    }
-
-    public void setNumber(String _number) throws ParseException {
-        this._number = CustomUtils.matchValue(_number, PHONE_NUMBER_PATTERN, "numéro invalide");
-        // Pattern pat = Pattern.compile(PHONE_NUMBER_PATTERN);
-        // Matcher matcher = pat.matcher(_number);
-
-        // if (matcher.matches()) {
-        // this._number = _number;
-        // } else {
-        // ParseException e = new ParseException("numéro invalide", 0);
-        // throw e;
-        // }
-
-    }
-
     public String getFirstname() {
         return _firstname;
     }
 
     public void setFirstname(String _prenom) throws ParseException {
-        this._firstname = CustomUtils.matchValue(_prenom, NAME_PATTERN, "prénom invalide");
+        this._firstname = CustomUtils.matchValue(_prenom, NAME_PATTERN, "prénom invalidebbbb");
     }
 
     public String getLastname() {
@@ -56,21 +38,20 @@ public class Contact {
         this._lastname = CustomUtils.matchValue(_nom, NAME_PATTERN, "nom invalide");
     }
 
+    public String getNumber() {
+        return _number;
+    }
+
+    public void setNumber(String _number) throws ParseException {
+        this._number = CustomUtils.matchValue(_number, PHONE_NUMBER_PATTERN, "Le format du numéro est inhfiushfiu");
+    }
+
     public String getMail() {
         return _mail;
     }
 
     public void setMail(String _mail) throws ParseException {
         this._mail = CustomUtils.matchValue(_mail, MAIL_PATTERN, "email invalide");
-        // Pattern pat = Pattern.compile(MAIL_PATTERN);
-        // Matcher matcher = pat.matcher(_mail);
-
-        // if (matcher.matches()) {
-        // this._mail = _mail;
-        // } else {
-        // ParseException e = new ParseException("email invalide", 0);
-        // throw e;
-        // }
     }
 
     public Date getBirthday() {

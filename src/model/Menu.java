@@ -9,6 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Menu {
     public static void displayMenu() throws ParseException {
         do {
@@ -161,12 +164,64 @@ public class Menu {
     public static void displayAllContacts() {
         try (BufferedReader br = new BufferedReader(new FileReader("contacts.csv"))) {
             String line;
+            int lineNumber = 1;
             while ((line = br.readLine()) != null) {
+
                 String[] fields = line.split(Contact.SEPARATEUR);
-                String lastName = fields[0];
-                String firstName = fields[1];
-                System.out.println("Nom : " + lastName + ", Prénom : " + firstName);
+                String firstName = fields[0];
+                String lastName = fields[1];
+                String number = fields[2];
+                String mail = fields[3];
+
+                Map<String, String> MONTHS = new HashMap<String, String>();
+                MONTHS.put("Jan", "1");
+                MONTHS.put("Feb", "2");
+                MONTHS.put("Mar", "3");
+                MONTHS.put("Apr", "4");
+                MONTHS.put("May", "5");
+                MONTHS.put("Jun", "6");
+                MONTHS.put("Jul", "7");
+                MONTHS.put("Aug", "8");
+                MONTHS.put("Sep", "9");
+                MONTHS.put("Oct", "10");
+                MONTHS.put("Nov", "11");
+                MONTHS.put("Dec", "12");
+
+                String[] date = fields[4].split(" ");
+                String day = date[2];
+                String month = MONTHS.get(date[1]);
+                String year = date[5];
+
+                StringBuilder build = new StringBuilder();
+                build.append(day);
+                build.append("/");
+                build.append(month);
+                build.append("/");
+                build.append(year);
+
+                String birthday = build.toString();
+
+                try {
+                    Contact contact = new Contact();
+                    contact.setFirstname(firstName);
+                    contact.setLastname(lastName);
+                    contact.setNumber(number);
+                    contact.setMail(mail);
+                    contact.setBirthday(birthday);
+
+                    Contact.contactList.add(contact);
+                    lineNumber++;
+
+                } catch (ParseException e) {
+                    System.out.println(ConsoleColors.RED + "Le contact ligne " + lineNumber + " n'a pas pu être lu"
+                            + ConsoleColors.DEFAULT);
+                }
             }
+
+            for (Contact contact : Contact.contactList) {
+                displayContact(contact);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

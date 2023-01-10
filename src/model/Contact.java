@@ -1,7 +1,12 @@
 package model;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Contact {
+    private static final String PHONE_NUMBER_PATTERN = null;
     private String _number;
     private String _prenom;
     private String _nom;
@@ -27,9 +33,9 @@ public class Contact {
     }
 
     public static void addToContactList(Contact contact) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv"))){
+        try (PrintWriter bw = new PrintWriter(new BufferedWriter(new FileWriter("contacts.csv",true)))){
             String contacString = getContactToString(contact);
-            bw.write(contacString);
+            bw.println(contacString);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -71,8 +77,16 @@ public class Contact {
     }
 
     public static void displayAllContacts() {
-        for (Contact contact : contactList) {
-            Contact.displayContact(contact);
+        try (BufferedReader br = new BufferedReader(new FileReader("contacts.csv"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(";");
+                String lastName = fields[0];
+                String firstName = fields[1];
+                System.out.println("Nom : " + lastName + ", Prénom : " + firstName);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         Menu.displayMenu();
     }

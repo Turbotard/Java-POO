@@ -62,7 +62,6 @@ public class Menu {
             }
         } while (true);
 
-        Menu.displayMenu();
     }
 
     public static void quit() {
@@ -70,7 +69,7 @@ public class Menu {
     }
 
     public static Date getDate(String dateString) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = dateFormat.parse(dateString);
 
         return date;

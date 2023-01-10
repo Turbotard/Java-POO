@@ -78,9 +78,9 @@ public class Contact {
 
     @Override
     public String toString() {
-        return contact.getFirstname() + ";" + contact.getLastname() + ";" + contact.getNumber() + ";"
-                + contact.getMail()
-                + ";" + contact.getBirthday();
+        return this.getFirstname() + ";" + this.getLastname() + ";" + this.getNumber() + ";"
+                + this.getMail()
+                + ";" + this.getBirthday();
         // return super.toString();
     }
 }

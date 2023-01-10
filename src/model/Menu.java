@@ -26,6 +26,8 @@ public class Menu {
                 case "2":
                     displayAllContacts();
                     break;
+                case "5":
+                    break;
                 case "q":
                     quit();
                     return;

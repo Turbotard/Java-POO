@@ -81,6 +81,5 @@ public class Contact {
         return this.getFirstname() + ";" + this.getLastname() + ";" + this.getNumber() + ";"
                 + this.getMail()
                 + ";" + this.getBirthday();
-        // return super.toString();
     }
 }

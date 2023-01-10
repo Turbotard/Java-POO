@@ -48,7 +48,7 @@ public class Menu {
     public static void createContact() {
         Contact contact = new Contact();
 
-        System.out.println("Entrez le prenom du contact :");
+        System.out.println("Entrez le prénom du contact :");
         String firsnameInput = getUserInput();
         contact.setFirstname(firsnameInput);
 
@@ -58,7 +58,7 @@ public class Menu {
 
         do {
             try {
-                System.out.println("Entrez le numero du contact :");
+                System.out.println("Entrez le numéro du contact :");
                 String numberInput = getUserInput();
                 contact.setNumber(numberInput);
 

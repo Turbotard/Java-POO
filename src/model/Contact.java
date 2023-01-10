@@ -8,7 +8,9 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class Contact {
-    private static final String PHONE_NUMBER_PATTERN = null;
+    private static final String PHONE_NUMBER_PATTERN = "(0|\\+33|0033)[1-9][0-9]{8}";
+    private static final String MAIL_PATTERN = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+
     public static ArrayList<Contact> contactList = new ArrayList<Contact>();
 
     private String _firstname;
@@ -22,8 +24,7 @@ public class Contact {
     }
 
     public void setNumber(String _number) throws ParseException {
-        Pattern pat = Pattern.compile(
-                "(0|\\+33|0033)[1-9][0-9]{8}");
+        Pattern pat = Pattern.compile(PHONE_NUMBER_PATTERN);
         Matcher matcher = pat.matcher(_number);
 
         if (matcher.matches()) {
@@ -55,8 +56,7 @@ public class Contact {
     }
 
     public void setMail(String _mail) throws ParseException {
-        Pattern pat = Pattern.compile(
-                "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
+        Pattern pat = Pattern.compile(MAIL_PATTERN);
         Matcher matcher = pat.matcher(_mail);
 
         if (matcher.matches()) {

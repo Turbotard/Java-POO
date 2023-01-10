@@ -11,7 +11,7 @@ public class Contact {
     private static final String PHONE_NUMBER_PATTERN = "(0|\\+33|0033)[1-9][0-9]{8}";
     private static final String MAIL_PATTERN = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
-    private static final String SEPARATEUR = ";";
+    public static final String SEPARATEUR = ";";
 
     public static ArrayList<Contact> contactList = new ArrayList<Contact>();
 

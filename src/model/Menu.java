@@ -162,7 +162,7 @@ public class Menu {
         try (BufferedReader br = new BufferedReader(new FileReader("contacts.csv"))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] fields = line.split(";");
+                String[] fields = line.split(Contact.SEPARATEUR);
                 String lastName = fields[0];
                 String firstName = fields[1];
                 System.out.println("Nom : " + lastName + ", Prénom : " + firstName);

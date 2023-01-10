@@ -66,8 +66,8 @@ public class Contact {
     }
 
     public static String getContactToString(Contact contact) {
-        return contact._nom + " ; " + contact._prenom + " ; " + contact._number + " ; " + contact._mail
-        + " ; " + contact._birthday;
+        return contact._nom + ";" + contact._prenom + ";" + contact._number + ";" + contact._mail
+        + ";" + contact._birthday;
     }
 
     public static void displayAllContacts() {

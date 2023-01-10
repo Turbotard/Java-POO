@@ -1,8 +1,6 @@
 package model;
 
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.text.ParseException;
 
 import java.io.BufferedReader;
@@ -15,10 +13,10 @@ import java.io.PrintWriter;
 public class Menu {
     public static void displayMenu() throws ParseException {
         do {
-            System.out.println("  -- Menu --");
+            System.out.println(ConsoleColors.GREEN + "  -- Menu --");
             System.out.println("1. Ajouter un contact");
             System.out.println("2. Afficher les contacts");
-            System.out.println("q. Quitter le menu");
+            System.out.println("q. Quitter le menu" + ConsoleColors.DEFAULT);
 
             String input = getUserInput();
 
@@ -33,7 +31,7 @@ public class Menu {
                     quit();
                     return;
                 default:
-                    System.out.println("Veuillez entrer une option valide \n");
+                    System.out.println(ConsoleColors.RED + "Veuillez entrer une option valide" + ConsoleColors.DEFAULT);
                     break;
             }
         } while (true);

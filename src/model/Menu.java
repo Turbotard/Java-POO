@@ -12,10 +12,10 @@ import java.io.PrintWriter;
 public class Menu {
     public static void displayMenu() throws ParseException {
         do {
-            System.out.println("  -- Menu --");
+            System.out.println(ConsoleColors.GREEN + "  -- Menu --");
             System.out.println("1. Ajouter un contact");
             System.out.println("2. Afficher les contacts");
-            System.out.println("q. Quitter le menu");
+            System.out.println("q. Quitter le menu" + ConsoleColors.DEFAULT);
 
             String input = getUserInput();
 
@@ -30,7 +30,7 @@ public class Menu {
                     quit();
                     return;
                 default:
-                    System.out.println("Veuillez entrer une option valide \n");
+                    System.out.println(ConsoleColors.RED + "Veuillez entrer une option valide" + ConsoleColors.DEFAULT);
                     break;
             }
         } while (true);
@@ -98,7 +98,7 @@ public class Menu {
 
     public static void addToContactList(Contact contact) {
         try (PrintWriter bw = new PrintWriter(new BufferedWriter(new FileWriter("contacts.csv", true)))) {
-            String contacString = getContactToString(contact);
+            String contacString = contact.toString();
             bw.println(contacString);
         } catch (IOException e) {
             e.printStackTrace();
@@ -119,7 +119,7 @@ public class Menu {
             Contact.contactList.remove(contactToRemove);
             try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv"))) {
                 for (Contact contact : Contact.contactList) {
-                    String contactString = getContactToString(contact);
+                    String contactString = contact.toString();
                     bw.write(contactString);
                     bw.newLine();
                 }
@@ -152,14 +152,8 @@ public class Menu {
     }
 
     public static void displayContact(Contact contact) {
-        String contacString = getContactToString(contact);
+        String contacString = contact.toString();
         System.out.println(contacString);
-    }
-
-    public static String getContactToString(Contact contact) {
-        return contact.getFirstname() + ";" + contact.getLastname() + ";" + contact.getNumber() + ";"
-                + contact.getMail()
-                + ";" + contact.getBirthday();
     }
 
     public static void displayAllContacts() {

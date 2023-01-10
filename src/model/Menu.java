@@ -19,9 +19,10 @@ public class Menu {
             switch (input) {
                 case "1":
                     createContact();
+                    break;
                 case "2":
                     Contact.displayAllContacts();
-                    return;
+                    break;
                 case "q":
                     quit();
                     return;

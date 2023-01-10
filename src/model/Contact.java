@@ -1,6 +1,9 @@
 package model;
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
 
 import java.io.FileWriter;
@@ -27,13 +30,13 @@ public class Contact {
     }
 
     public static void addToContactList(Contact contact) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv"))){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv"))) {
             String contacString = getContactToString(contact);
             bw.write(contacString);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
         contactList.add(contact);
     }
 
@@ -67,13 +70,20 @@ public class Contact {
 
     public static String getContactToString(Contact contact) {
         return contact._nom + " " + contact._prenom + " " + contact._number + " " + contact._mail
-        + " " + contact._birthday;
+                + " " + contact._birthday;
     }
 
     public static void displayAllContacts() {
         for (Contact contact : contactList) {
             Contact.displayContact(contact);
         }
+
+        try (BufferedReader bw = new BufferedReader(new FileReader("contacts.csv"))) {
+
+        } catch (IOException e) {
+
+        }
+
         Menu.displayMenu();
     }
 }

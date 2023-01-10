@@ -1,6 +1,3 @@
-import java.sql.Date;
-
-import model.Contact;
 import model.Menu;
 
 public class App {

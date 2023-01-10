@@ -96,7 +96,7 @@ public class Menu {
     }
 
     public static void quit() {
-        System.out.println(ConsoleColors.RED + "Fermetur du menu..." + ConsoleColors.DEFAULT);
+        System.out.println(ConsoleColors.RED + "Fermeture du menu..." + ConsoleColors.DEFAULT);
     }
 
     public static void addToContactList(Contact contact) {

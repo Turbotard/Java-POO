@@ -43,8 +43,29 @@ public class Contact {
         contactList.add(contact);
     }
 
-    public static void deleteContact(Contact contact) {
-        contactList.remove(contact);
+    public static void deleteContact(String firstName, String lastName) {
+        Contact contactToRemove = null;
+        for (Contact contact : contactList) {
+            if (contact._prenom.equals(firstName) && contact._nom.equals(lastName)) {
+                contactToRemove = contact;
+                break;
+            }
+        }
+        if(contactToRemove != null) {
+            contactList.remove(contactToRemove);
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv"))) {
+                for (Contact contact : contactList) {
+                    String contactString = getContactToString(contact);
+                    bw.write(contactString);
+                    bw.newLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("The contact "+ firstName+" "+lastName +" does not exist.");
+        }
     }
 
     public static void displaySpecificContact(String prenom, String nom) {

@@ -1,4 +1,7 @@
 package model;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -21,7 +24,18 @@ public class Contact {
     }
 
     public static void addContact(Contact contact) {
-        contacteListe.add(contact);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv"))) {
+            // Write the header row
+            bw.write("Name,Phone Number");
+            bw.newLine();
+
+            // Write the data rows
+            bw.write(contact._prenom + contact._nom + contact._number + contact._mail + contact._date);
+
+            System.out.println("File saved successfully");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void deleteContact(Contact contact) {

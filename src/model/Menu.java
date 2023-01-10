@@ -36,6 +36,7 @@ public class Menu {
     }
 
     public static void add() {
+        Contact.addContact();
         System.out.println("Contact ajouté");
     }
 

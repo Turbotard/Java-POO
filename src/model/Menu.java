@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.text.ParseException;
 import java.util.Date;
 import java.text.ParseException;
@@ -38,6 +40,7 @@ public class Menu {
     }
 
     public static void createContact() {
+        Pattern pat = Pattern.compile("^(?:(?:\\+|00)33|0)\\s*[1-9](?:[\\s.-]*\\d{2}){4}$");
         Date currentDate = new Date(12 - 12 - 2004);
         System.out.println("Entrez le prenom du contact :");
         String prenom = getUserInput();
@@ -45,6 +48,15 @@ public class Menu {
         String nom = getUserInput();
         System.out.println("Entrez le numero du contact :");
         String numero = getUserInput();
+        Matcher matcher = pat.matcher(numero);
+        if (matcher.matches()){
+            
+        }else{
+            numero = null;
+        }
+
+
+        
         System.out.println("Entrez le mail du contact :");
         String mail = getUserInput();
 

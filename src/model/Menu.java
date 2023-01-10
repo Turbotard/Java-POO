@@ -102,7 +102,7 @@ public class Menu {
 
         do {
             try {
-                System.out.println("Entrez la de naissance du contact dans le format jj/mm/aaaa :");
+                System.out.println("Entrez la date de naissance du contact dans le format jj/mm/aaaa :");
                 String birthdayInput = getUserInput();
                 contact.setBirthday(birthdayInput);
 

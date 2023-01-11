@@ -36,6 +36,7 @@ public class Menu {
             System.out.println(ConsoleColors.GREEN + "  -- Menu --");
             System.out.println("1. Ajouter un contact");
             System.out.println("2. Afficher les contacts");
+            System.out.println("5. Supprimer un contact");
             System.out.println("q. Quitter le menu" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();
@@ -141,32 +142,6 @@ public class Menu {
         Contact.contactList.add(contact);
     }
 
-    // public static void deleteContact(String firstName, String lastName) {
-    // Contact contactToRemove = null;
-    // for (Contact contact : Contact.contactList) {
-    // if (contact.getFirstname().equals(firstName) &&
-    // contact.getLastname().equals(lastName)) {
-    // contactToRemove = contact;
-    // break;
-    // }
-    // }
-    // if (contactToRemove != null) {
-    // Contact.contactList.remove(contactToRemove);
-    // try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv")))
-    // {
-    // for (Contact contact : Contact.contactList) {
-    // String contactString = contact.toString();
-    // bw.write(contactString);
-    // bw.newLine();
-    // }
-    // } catch (IOException e) {
-    // e.printStackTrace();
-    // }
-    // } else {
-    // System.out.println("The contact " + firstName + " " + lastName + " does not
-    // exist.");
-    // }
-    // }
 
     public static void delete() {
         csvToContactList();
@@ -184,11 +159,11 @@ public class Menu {
             Contact.contactList.remove(contactToRemove);
             contactListToCsv();
 
-            System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " " + lastName
+            System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " | " + lastName
                     + " a été supprimé !" + ConsoleColors.DEFAULT);
 
         } else {
-            System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " " + lastName
+            System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " | " + lastName
                     + " n'existe pas." + ConsoleColors.DEFAULT);
         }
     }

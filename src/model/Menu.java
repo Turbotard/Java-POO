@@ -315,7 +315,6 @@ public class Menu extends Contact {
             displayContact(contact);
         }
 
-        
     }
 
     static void contactListToCsv() {
@@ -366,9 +365,7 @@ public class Menu extends Contact {
         }
     }
 
-    
-
-    public static void displayMenuTri() throws ParseException{
+    public static void displayMenuTri() throws ParseException {
         do {
             System.out.println(ConsoleColors.GREEN + "  -- Menu tri --");
             System.out.println("1. Trier par prénom");
@@ -383,29 +380,27 @@ public class Menu extends Contact {
                 case "2":
                     triContactNom();
                     break;
-                case "q":    
+                case "q":
                     return;
             }
-        }while (true);
+        } while (true);
     }
 
-    
-    public static void triContactPrenom(){
+    public static void triContactPrenom() {
         Contact.sortContactListPrenom();
-        System.out.println("Vous avez choisi le tri par prénom." + ConsoleColors.YELLOW);
+        System.out.println(ConsoleColors.YELLOW + "Vous avez choisi le tri par prénom." + ConsoleColors.DEFAULT);
     }
 
-
-    public static void triContactNom(){
+    public static void triContactNom() {
         Contact.sortContactListNom();
-        System.out.println("Vous avez choisi le tri par nom.");
+        System.out.println(ConsoleColors.YELLOW + "Vous avez choisi le tri par nom." + ConsoleColors.DEFAULT);
     }
 
-
-    public static void triContactBirthday(){
+    public static void triContactBirthday() {
         Contact.sortContactListBirthday();
         System.out.println("Vous avez choisi le tri par date de naissance.");
     }
+
     public static void findContactByFirstName() {
         System.out.println("Entrez le début du prénom du contact à chercher :");
         String firstNameInput = CustomUtils.getUserInput();

@@ -404,12 +404,22 @@ public class Menu extends Contact {
     public static void findContactByFirstName() {
         System.out.println("Entrez le début du prénom du contact à chercher :");
         String firstNameInput = CustomUtils.getUserInput();
+        Boolean verif = false;
 
         for (Contact c : Contact.contactList) {
             if (c.getFirstname().toLowerCase().startsWith(firstNameInput.toLowerCase())) {
+                verif = true;
                 displayContact(c);
             }
-        }
-    }
+            
+            }
+            if (verif == false){
+                System.out.println(ConsoleColors.RED + "Aucun contact ne correspond à votre recherche !" + ConsoleColors.DEFAULT);
+            }else{
+                System.out.println(ConsoleColors.DARK_GREEN + "Voici le/les contacts trouvrez !" + ConsoleColors.DEFAULT);
 
+            }
+        }
 }
+
+

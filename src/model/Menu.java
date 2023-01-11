@@ -194,8 +194,6 @@ public class Menu {
         Contact.contactList.clear();
         csvToContactList();
 
-        System.out.println("Liste des contacts :" + Contact.contactList);
-
         for (Contact contact : Contact.contactList) {
             displayContact(contact);
         }
@@ -223,12 +221,12 @@ public class Menu {
                     contact.setBirthday(birthday);
 
                     Contact.contactList.add(contact);
-                    lineNumber++;
 
                 } catch (ParseException e) {
                     System.out.println(ConsoleColors.RED + "Le contact ligne " + lineNumber + " n'a pas pu être lu"
                             + ConsoleColors.DEFAULT);
                 }
+                lineNumber++;
             }
 
         } catch (IOException e) {

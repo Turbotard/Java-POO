@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class Menu {
+public class Menu extends Contact {
     public static Map<String, String> MONTHS = new HashMap<String, String>() {
         {
             put("Jan", "1");
@@ -36,6 +36,7 @@ public class Menu {
             System.out.println(ConsoleColors.GREEN + "  -- Menu --");
             System.out.println("1. Ajouter un contact");
             System.out.println("2. Afficher les contacts");
+            System.out.println("3. Trier les contacts");
             System.out.println("5. Supprimer un contact");
             System.out.println("q. Quitter le menu" + ConsoleColors.DEFAULT);
 
@@ -47,6 +48,9 @@ public class Menu {
                     break;
                 case "2":
                     displayAllContacts();
+                    break;
+                case "3":
+                    displayMenuTri();
                     break;
                 case "5":
                     delete();
@@ -188,18 +192,19 @@ public class Menu {
         return null;
     }
 
-    public static void displayContact(Contact contact) {
-        String contactString = contact.toString();
+    public static void displayContact(Contact contactList) {
+        String contactString = contactList.toString();
         contactString = contactString.replace(Contact.SEPARATEUR, " | ");
         System.out.println(contactString);
     }
 
-    public static void displayAllContacts() {
-        csvToContactList();
+    public static void displayAllContacts() throws ParseException {
 
         for (Contact contact : Contact.contactList) {
             displayContact(contact);
         }
+
+        
     }
 
     static void contactListToCsv() {
@@ -216,7 +221,7 @@ public class Menu {
 
     static void csvToContactList() {
         try (BufferedReader br = new BufferedReader(new FileReader("contacts.csv"))) {
-            Contact.contactList.clear();
+
             String line;
             int lineNumber = 0;
             while ((line = br.readLine()) != null) {
@@ -248,5 +253,48 @@ public class Menu {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    
+
+    public static void displayMenuTri() throws ParseException{
+        do {
+            System.out.println(ConsoleColors.GREEN + "  -- Menu --");
+            System.out.println("1. Trier par prénom");
+            System.out.println("2. Trier par nom");
+            System.out.println("r. Retour" + ConsoleColors.DEFAULT);
+
+            String input = CustomUtils.getUserInput();
+            switch (input) {
+                case "1":
+                    triContactPrenom();
+                    break;
+                case "2":
+                    triContactNom();
+                    break;
+                case "r":
+                    retour();
+            }
+        }while (true);
+    }
+
+    public static void retour() throws ParseException{
+        displayMenu();
+    }
+    public static void triContactPrenom(){
+        Contact.sortContactListPrenom();
+        System.out.println("Vous avez choisi le tri par prénom." + ConsoleColors.YELLOW);
+    }
+
+
+    public static void triContactNom(){
+        Contact.sortContactListNom();
+        System.out.println("Vous avez choisi le tri par nom.");
+    }
+
+
+    public static void triContactBirthday(){
+        Contact.sortContactListBirthday();
+        System.out.println("Vous avez choisi le tri par date de naissance.");
     }
 }

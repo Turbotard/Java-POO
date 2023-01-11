@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.Collections;
 
-public class Contact {
+public class Contact  {
     private static final String NAME_PATTERN = "^[a-zA-Z]+(([\\'\\,\\.\\-][a-zA-Z])?[a-zA-Z]*)*$";
     private static final String PHONE_NUMBER_PATTERN = "(0|\\+33|0033)[1-9][0-9]{8}";
     private static final String MAIL_PATTERN = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
@@ -65,9 +65,22 @@ public class Contact {
         this._birthday = dateFormat.parse(_birthday);
     }
 
-    static void sortContactList() {
+    static void sortContactListPrenom() {
+        Contact.contactList.clear();
+        Menu.csvToContactList();
         Collections.sort(contactList, (o1, o2) -> o1.getFirstname().compareTo(o2.getFirstname()));
-        System.out.println(contactList);
+    }
+
+    static void sortContactListNom() {
+        Contact.contactList.clear();
+        Menu.csvToContactList();
+        Collections.sort(contactList, (o1, o2) -> o1.getLastname().compareTo(o2.getLastname()));
+    }
+
+    static void sortContactListBirthday() {
+        Contact.contactList.clear();
+        Menu.csvToContactList();
+        Collections.sort(contactList, (o1, o2) -> o1.getBirthday().compareTo(o2.getBirthday()));
     }
 
     @Override

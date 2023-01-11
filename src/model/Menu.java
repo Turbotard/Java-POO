@@ -186,11 +186,15 @@ public class Menu {
 
     public static void displayContact(Contact contact) {
         String contactString = contact.toString();
+        contactString = contactString.replace(Contact.SEPARATEUR, " | ");
         System.out.println(contactString);
     }
 
     public static void displayAllContacts() {
+        Contact.contactList.clear();
         csvToContactList();
+
+        System.out.println("Liste des contacts :" + Contact.contactList);
 
         for (Contact contact : Contact.contactList) {
             displayContact(contact);
@@ -209,20 +213,6 @@ public class Menu {
                 String number = fields[2];
                 String mail = fields[3];
                 String birthday = fields[4];
-
-                /*String[] date = fields[4].split(" ");
-                String day = date[2];
-                String month = Menu.MONTHS.get(date[1]);
-                String year = date[5];
-
-                StringBuilder build = new StringBuilder();
-                build.append(day);
-                build.append("/");
-                build.append(month);
-                build.append("/");
-                build.append(year);
-
-                String birthday = build.toString();*/
 
                 try {
                     Contact contact = new Contact();

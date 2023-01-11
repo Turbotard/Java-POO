@@ -31,11 +31,13 @@ public class Menu {
         }
     };
 
-    public static void displayMenu() throws ParseException {
+    public static void displayMenu() {
+        csvToContactList();
         do {
             System.out.println(ConsoleColors.GREEN + "  -- Menu --");
             System.out.println("1. Ajouter un contact");
             System.out.println("2. Afficher les contacts");
+            System.out.println("4. Modifier un contact");
             System.out.println("5. Supprimer un contact");
             System.out.println("q. Quitter le menu" + ConsoleColors.DEFAULT);
 
@@ -48,6 +50,9 @@ public class Menu {
                 case "2":
                     displayAllContacts();
                     break;
+                case "4":
+                    edit();
+                    break;
                 case "5":
                     delete();
                     break;
@@ -59,6 +64,109 @@ public class Menu {
                     break;
             }
         } while (true);
+    }
+
+    public static void displayEditMenu(Contact contactToEdit) {
+        do {
+            System.out.println(ConsoleColors.GREEN + "  -- Quel valeur voulez-vous modifier ? --");
+            System.out.println("1. Prénom");
+            System.out.println("2. Nom");
+            System.out.println("3. Numéro");
+            System.out.println("4. Mail");
+            System.out.println("5. Date de naissance");
+            System.out.println("q. Quitter le menu d'édition" + ConsoleColors.DEFAULT);
+
+            String input = CustomUtils.getUserInput();
+            switch (input) {
+                case "1":
+                    System.out.println("Entrez le nouveau prénom :");
+                    try {
+                        contactToEdit.setFirstname(CustomUtils.getUserInput());
+                        System.out
+                                .println(ConsoleColors.YELLOW + "Prénom modifié avec succès !" + ConsoleColors.DEFAULT);
+                    } catch (ParseException e) {
+                        System.out.println(
+                                ConsoleColors.RED + "Le format du prénom est incorrect" + ConsoleColors.DEFAULT);
+                        break;
+                    }
+                    break;
+                case "2":
+                    System.out.println("Entrez le nouveau nom :");
+                    try {
+                        contactToEdit.setLastname(CustomUtils.getUserInput());
+                        System.out.println(ConsoleColors.YELLOW + "Nom modifié avec succès !" + ConsoleColors.DEFAULT);
+                    } catch (ParseException e) {
+                        System.out
+                                .println(ConsoleColors.RED + "Le format du nom est incorrect" + ConsoleColors.DEFAULT);
+                        break;
+                    }
+                    break;
+                case "3":
+                    System.out.println("Entrez le nouveau numéro de téléphone :");
+                    try {
+                        contactToEdit.setNumber(CustomUtils.getUserInput());
+                        System.out.println(ConsoleColors.YELLOW + "Numéro de téléphone modifié avec succès !"
+                                + ConsoleColors.DEFAULT);
+                    } catch (ParseException e) {
+                        System.out.println(ConsoleColors.RED + "Le format du numéro de téléphone est incorrect"
+                                + ConsoleColors.DEFAULT);
+                        break;
+                    }
+                    break;
+                case "4":
+                    System.out.println("Entrez la nouvelle adresse email :");
+                    try {
+                        contactToEdit.setMail(CustomUtils.getUserInput());
+                        System.out.println(
+                                ConsoleColors.YELLOW + "Adresse email modifiée avec succès !" + ConsoleColors.DEFAULT);
+                    } catch (ParseException e) {
+                        System.out.println(ConsoleColors.RED + "Le format de l'adresse email est incorrect"
+                                + ConsoleColors.DEFAULT);
+                        break;
+                    }
+                    break;
+                case "5":
+                    System.out.println("Entrez la nouvelle date de naissance :");
+                    try {
+                        contactToEdit.setBirthday(CustomUtils.getUserInput());
+                        System.out.println(ConsoleColors.YELLOW + "Date de naissance modifiée avec succès !"
+                                + ConsoleColors.DEFAULT);
+                    } catch (ParseException e) {
+                        System.out.println(ConsoleColors.RED + "Le format de la date de naissance est incorrect"
+                                + ConsoleColors.DEFAULT);
+                        break;
+                    }
+                    break;
+                case "q":
+                    System.out.println(ConsoleColors.RED + "Fermeture du menu d'édition..." + ConsoleColors.DEFAULT);
+                    contactListToCsv();
+                    return;
+                default:
+                    System.out.println(ConsoleColors.RED + "Veuillez entrer une option valide" + ConsoleColors.DEFAULT);
+                    break;
+            }
+        } while (true);
+    }
+
+    public static void edit() {
+        System.out.println("Entrez le prénom du contact à modifier :");
+        String firstnameInput = CustomUtils.getUserInput();
+
+        System.out.println("Entrez le nom du contact à modifier :");
+        String lastnameInput = CustomUtils.getUserInput();
+
+        editContact(firstnameInput, lastnameInput);
+    }
+
+    public static void editContact(String firstName, String lastName) {
+        Contact contactToEdit = getContact(firstName, lastName);
+
+        if (contactToEdit != null) {
+            displayEditMenu(contactToEdit);
+        } else {
+            System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " | " + lastName
+                    + " n'existe pas" + ConsoleColors.DEFAULT);
+        }
     }
 
     public static void createContact() {
@@ -141,7 +249,6 @@ public class Menu {
 
         Contact.contactList.add(contact);
     }
-
 
     public static void delete() {
         csvToContactList();

@@ -411,7 +411,8 @@ public class Menu extends Contact {
 
         if (filteredList.size() > 0) {
 
-            System.out.println(ConsoleColors.YELLOW + "Voici le/les contacts trouvés :");
+            System.out.println(ConsoleColors.DARK_GREEN + "Voici le/les contacts trouvés :" + ConsoleColors.DEFAULT);
+            System.out.println(ConsoleColors.YELLOW);
             for (Contact c : filteredList) {
                 displayContact(c);
             }

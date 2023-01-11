@@ -9,7 +9,11 @@
             "name": "Launch App",
             "request": "launch",
             "mainClass": "App",
+<<<<<<< HEAD
             "projectName": "Java-POO-2_1c93f94"
+=======
+            "projectName": "java-poo_463c4831"
+>>>>>>> e5d4f2ee211cbd43b26cbaf9050130311cca0849
         },
         {
             "type": "java",

@@ -48,6 +48,7 @@ public class Menu {
                     displayAllContacts();
                     break;
                 case "5":
+                    delete();
                     break;
                 case "q":
                     quit();
@@ -140,27 +141,55 @@ public class Menu {
         Contact.contactList.add(contact);
     }
 
+    // public static void deleteContact(String firstName, String lastName) {
+    // Contact contactToRemove = null;
+    // for (Contact contact : Contact.contactList) {
+    // if (contact.getFirstname().equals(firstName) &&
+    // contact.getLastname().equals(lastName)) {
+    // contactToRemove = contact;
+    // break;
+    // }
+    // }
+    // if (contactToRemove != null) {
+    // Contact.contactList.remove(contactToRemove);
+    // try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv")))
+    // {
+    // for (Contact contact : Contact.contactList) {
+    // String contactString = contact.toString();
+    // bw.write(contactString);
+    // bw.newLine();
+    // }
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
+    // } else {
+    // System.out.println("The contact " + firstName + " " + lastName + " does not
+    // exist.");
+    // }
+    // }
+
+    public static void delete() {
+        csvToContactList();
+
+        System.out.println("Entrez le prénom du contact à supprimer :");
+        String firsnameInput = CustomUtils.getUserInput();
+        System.out.println("Entrez le nom du contact à supprimer :");
+        String lastnameInput = CustomUtils.getUserInput();
+        deleteContact(firsnameInput, lastnameInput);
+    }
+
     public static void deleteContact(String firstName, String lastName) {
-        Contact contactToRemove = null;
-        for (Contact contact : Contact.contactList) {
-            if (contact.getFirstname().equals(firstName) && contact.getLastname().equals(lastName)) {
-                contactToRemove = contact;
-                break;
-            }
-        }
+        Contact contactToRemove = getContact(firstName, lastName);
         if (contactToRemove != null) {
             Contact.contactList.remove(contactToRemove);
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv"))) {
-                for (Contact contact : Contact.contactList) {
-                    String contactString = contact.toString();
-                    bw.write(contactString);
-                    bw.newLine();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            contactListToCsv();
+
+            System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " " + lastName
+                    + " a été supprimé !" + ConsoleColors.DEFAULT);
+
         } else {
-            System.out.println("The contact " + firstName + " " + lastName + " does not exist.");
+            System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " " + lastName
+                    + " n'existe pas." + ConsoleColors.DEFAULT);
         }
     }
 
@@ -191,7 +220,6 @@ public class Menu {
     }
 
     public static void displayAllContacts() {
-        Contact.contactList.clear();
         csvToContactList();
 
         for (Contact contact : Contact.contactList) {
@@ -199,8 +227,21 @@ public class Menu {
         }
     }
 
+    static void contactListToCsv() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv"))) {
+            for (Contact contact : Contact.contactList) {
+                String contactString = contact.toString();
+                bw.write(contactString);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     static void csvToContactList() {
         try (BufferedReader br = new BufferedReader(new FileReader("contacts.csv"))) {
+            Contact.contactList.clear();
             String line;
             int lineNumber = 0;
             while ((line = br.readLine()) != null) {

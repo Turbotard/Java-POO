@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.Collections;
 
 public class Contact {
     private static final String NAME_PATTERN = "^[a-zA-Z]+(([\\'\\,\\.\\-][a-zA-Z])?[a-zA-Z]*)*$";
@@ -62,6 +63,11 @@ public class Contact {
     public void setBirthday(String _birthday) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         this._birthday = dateFormat.parse(_birthday);
+    }
+
+    static void sortContactList() {
+        Collections.sort(contactList, (o1, o2) -> o1.getFirstname().compareTo(o2.getFirstname()));
+        System.out.println(contactList);
     }
 
     @Override

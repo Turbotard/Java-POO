@@ -204,7 +204,7 @@ public class Menu {
     static void csvToContactList() {
         try (BufferedReader br = new BufferedReader(new FileReader("contacts.csv"))) {
             String line;
-            int lineNumber = 1;
+            int lineNumber = 0;
             while ((line = br.readLine()) != null) {
 
                 String[] fields = line.split(Contact.SEPARATEUR);

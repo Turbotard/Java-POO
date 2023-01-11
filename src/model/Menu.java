@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Scanner;
 import java.text.ParseException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,7 +10,8 @@ import java.io.PrintWriter;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Menu extends Contact {
     public static Map<String, String> MONTHS = new HashMap<String, String>() {
@@ -404,22 +404,22 @@ public class Menu extends Contact {
     public static void findContactByFirstName() {
         System.out.println("Entrez le début du prénom du contact à chercher :");
         String firstNameInput = CustomUtils.getUserInput();
-        Boolean verif = false;
 
-        for (Contact c : Contact.contactList) {
-            if (c.getFirstname().toLowerCase().startsWith(firstNameInput.toLowerCase())) {
-                verif = true;
+        ArrayList<Contact> filteredList = Contact.contactList.stream()
+                .filter(o -> o.getFirstname().startsWith(firstNameInput))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (filteredList.size() > 0) {
+
+            System.out.println(ConsoleColors.YELLOW + "Voici le/les contacts trouvés :");
+            for (Contact c : filteredList) {
                 displayContact(c);
             }
-            
-            }
-            if (verif == false){
-                System.out.println(ConsoleColors.RED + "Aucun contact ne correspond à votre recherche !" + ConsoleColors.DEFAULT);
-            }else{
-                System.out.println(ConsoleColors.DARK_GREEN + "Voici le/les contacts trouvrez !" + ConsoleColors.DEFAULT);
+            System.out.println(ConsoleColors.DEFAULT);
 
-            }
+        } else {
+            System.out.println(
+                    ConsoleColors.RED + "Aucun contact ne correspond à votre recherche !" + ConsoleColors.DEFAULT);
         }
+    }
 }
-
-

@@ -76,6 +76,7 @@ public class Menu extends Contact {
 
     public static void displayEditMenu(Contact contactToEdit) {
         do {
+            displayContact(contactToEdit);
             System.out.println(ConsoleColors.GREEN + "  -- Quel valeur voulez-vous modifier ? --");
             System.out.println("1. Prénom");
             System.out.println("2. Nom");

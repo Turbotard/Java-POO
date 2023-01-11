@@ -31,7 +31,7 @@ public class Menu extends Contact {
         }
     };
 
-    public static void displayMenu() {
+    public static void displayMenu() throws ParseException {
         csvToContactList();
         do {
             System.out.println(ConsoleColors.GREEN + "  -- Menu --");
@@ -365,10 +365,10 @@ public class Menu extends Contact {
 
     public static void displayMenuTri() throws ParseException{
         do {
-            System.out.println(ConsoleColors.GREEN + "  -- Menu --");
+            System.out.println(ConsoleColors.GREEN + "  -- Menu tri --");
             System.out.println("1. Trier par prénom");
             System.out.println("2. Trier par nom");
-            System.out.println("r. Retour" + ConsoleColors.DEFAULT);
+            System.out.println("q. Quitter menu tri" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();
             switch (input) {
@@ -378,8 +378,9 @@ public class Menu extends Contact {
                 case "2":
                     triContactNom();
                     break;
-                case "r":
-                    retour();
+                case "q": 
+                    retour(); 
+                    return;
             }
         }while (true);
     }

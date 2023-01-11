@@ -198,8 +198,9 @@ public class Menu {
                 String lastName = fields[1];
                 String number = fields[2];
                 String mail = fields[3];
+                String birthday = fields[4];
 
-                String[] date = fields[4].split(" ");
+                /*String[] date = fields[4].split(" ");
                 String day = date[2];
                 String month = Menu.MONTHS.get(date[1]);
                 String year = date[5];
@@ -211,7 +212,7 @@ public class Menu {
                 build.append("/");
                 build.append(year);
 
-                String birthday = build.toString();
+                String birthday = build.toString();*/
 
                 try {
                     Contact contact = new Contact();

@@ -69,8 +69,9 @@ public class Contact {
         }
     }
 
-    public Date getBirthday() {
-        return _birthday;
+    public String getBirthday() {
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+        return f.format(_birthday);
     }
 
     public void setBirthday(String _birthday) throws ParseException {

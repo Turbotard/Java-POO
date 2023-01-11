@@ -141,33 +141,6 @@ public class Menu {
         Contact.contactList.add(contact);
     }
 
-    // public static void deleteContact(String firstName, String lastName) {
-    // Contact contactToRemove = null;
-    // for (Contact contact : Contact.contactList) {
-    // if (contact.getFirstname().equals(firstName) &&
-    // contact.getLastname().equals(lastName)) {
-    // contactToRemove = contact;
-    // break;
-    // }
-    // }
-    // if (contactToRemove != null) {
-    // Contact.contactList.remove(contactToRemove);
-    // try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv")))
-    // {
-    // for (Contact contact : Contact.contactList) {
-    // String contactString = contact.toString();
-    // bw.write(contactString);
-    // bw.newLine();
-    // }
-    // } catch (IOException e) {
-    // e.printStackTrace();
-    // }
-    // } else {
-    // System.out.println("The contact " + firstName + " " + lastName + " does not
-    // exist.");
-    // }
-    // }
-
     public static void delete() {
         csvToContactList();
 

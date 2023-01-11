@@ -36,6 +36,7 @@ public class Menu {
             System.out.println(ConsoleColors.GREEN + "  -- Menu --");
             System.out.println("1. Ajouter un contact");
             System.out.println("2. Afficher les contacts");
+            System.out.println("5. Supprimer un contact");
             System.out.println("q. Quitter le menu" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();
@@ -157,11 +158,11 @@ public class Menu {
             Contact.contactList.remove(contactToRemove);
             contactListToCsv();
 
-            System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " " + lastName
+            System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " | " + lastName
                     + " a été supprimé !" + ConsoleColors.DEFAULT);
 
         } else {
-            System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " " + lastName
+            System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " | " + lastName
                     + " n'existe pas." + ConsoleColors.DEFAULT);
         }
     }

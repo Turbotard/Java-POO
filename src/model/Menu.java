@@ -39,7 +39,8 @@ public class Menu extends Contact {
             System.out.println("2. Afficher les contacts");
             System.out.println("3. Trier les contacts");
             System.out.println("4. Modifier un contact");
-            System.out.println("5. Supprimer un contact");
+            System.out.println("5. Rechercher les contacts");
+            System.out.println("6. Supprimer un contact");
             System.out.println("q. Quitter le menu" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();
@@ -53,10 +54,14 @@ public class Menu extends Contact {
                     break;
                 case "3":
                     displayMenuTri();
+                    break;
                 case "4":
                     edit();
                     break;
                 case "5":
+                    findContactByFirstName();
+                    break;
+                case "6":
                     delete();
                     break;
                 case "q":
@@ -378,16 +383,13 @@ public class Menu extends Contact {
                 case "2":
                     triContactNom();
                     break;
-                case "q": 
-                    retour(); 
+                case "q":    
                     return;
             }
         }while (true);
     }
 
-    public static void retour() throws ParseException{
-        displayMenu();
-    }
+    
     public static void triContactPrenom(){
         Contact.sortContactListPrenom();
         System.out.println("Vous avez choisi le tri par prénom." + ConsoleColors.YELLOW);
@@ -404,4 +406,15 @@ public class Menu extends Contact {
         Contact.sortContactListBirthday();
         System.out.println("Vous avez choisi le tri par date de naissance.");
     }
+    public static void findContactByFirstName() {
+        System.out.println("Entrez le début du prénom du contact à chercher :");
+        String firstNameInput = CustomUtils.getUserInput();
+
+        for (Contact c : Contact.contactList) {
+            if (c.getFirstname().toLowerCase().startsWith(firstNameInput.toLowerCase())) {
+                displayContact(c);
+            }
+        }
+    }
+
 }

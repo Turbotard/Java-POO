@@ -604,10 +604,10 @@ public class Menu {
 
     public static void displayMenuDelete() throws ParseException {
         do {
-            System.out.println(ConsoleColors.GREEN + "  -- Menu supprimer --");
+            System.out.println(ConsoleColors.GREEN + "  -- Menu de Suppression --");
             System.out.println("1. Supprimer un contact");
             System.out.println("2. Supprimer tout les contacts");
-            System.out.println("q. Quitter Menu de Recherche" + ConsoleColors.DEFAULT);
+            System.out.println("q. Quitter Menu de Suppression" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();
             switch (input) {

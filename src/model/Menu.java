@@ -409,16 +409,16 @@ public class Menu {
             String input = CustomUtils.getUserInput();
             switch (input) {
                 case "1":
-                    Contact.sortContactListByFirstname();
+                    Contact.sortContactListByFirstnameC();
                     break;
                 case "2":
-                    Contact.sortContactListByLastname();
+                    Contact.sortContactListByLastnameC();
                     break;
                 case "3":
-                    Contact.sortContactListByMail();
+                    Contact.sortContactListByMailC();
                     break;
                 case "4":
-                    Contact.sortContactListByBirthday();
+                    Contact.sortContactListByBirthdayC();
                     break;
                 case "q":
                     System.out.println(ConsoleColors.RED + "Fermeture du menu de tri" + ConsoleColors.DEFAULT);

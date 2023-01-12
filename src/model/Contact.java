@@ -115,34 +115,7 @@ public class Contact {
         Collections.reverse(Contact.contactList);
         isReversed = true;
     }
-    /*
-     * static void sortContactListPrenom() {
-     * Contact.contactList.clear();
-     * Menu.csvToContactList();
-     * Collections.sort(contactList, (o1, o2) ->
-     * o1.getFirstname().compareTo(o2.getFirstname()));
-     * System.out.println(contactList);
-     * }
-     * 
-     * static void sortContactListNom() {
-     * Contact.contactList.clear();
-     * Menu.csvToContactList();
-     * Collections.sort(contactList, LASTNAME_COMPARATOR);
-     * }
-     * 
-     * static void sortContactListMail() {
-     * Contact.contactList.clear();
-     * Menu.csvToContactList();
-     * Collections.sort(contactList, MAIL_COMPARATOR);
-     * }
-     * 
-     * static void sortContactListBirthday() {
-     * Contact.contactList.clear();
-     * Menu.csvToContactList();
-     * Collections.sort(contactList, (o1, o2) ->
-     * o1.getBirthday().compareTo(o2.getBirthday()));
-     * }
-     */
+
 
     static boolean contactExist(String firstname, String lastname) {
         for (Contact contact : contactList) {

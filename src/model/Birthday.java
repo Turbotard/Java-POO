@@ -24,11 +24,11 @@ public class Birthday implements Comparator<Contact> {
         int year2 = Integer.parseInt(date2[2]);
 
         if (year1 != year2) {
-            return year2 - year1;
+            return year1 - year2;
         } else if (month1 != month2) {
-            return month2 - month1;
+            return month1 - month2;
         } else {
-            return day2 - day1;
+            return day1 - day2;
         }
     }
 }

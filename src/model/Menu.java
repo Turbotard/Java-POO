@@ -8,12 +8,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class Menu extends Contact {
+public class Menu {
     public static Map<String, String> MONTHS = new HashMap<String, String>() {
         {
             put("Jan", "1");
@@ -31,7 +31,7 @@ public class Menu extends Contact {
         }
     };
 
-    public static void displayMenu() {
+    public static void displayMenu() throws ParseException {
         csvToContactList();
         do {
             System.out.println(ConsoleColors.GREEN + "  -- Menu --");
@@ -53,6 +53,7 @@ public class Menu extends Contact {
                     break;
                 case "3":
                     displayMenuTri();
+                    break;
                 case "4":
                     edit();
                     break;
@@ -327,7 +328,6 @@ public class Menu extends Contact {
 
     static void csvToContactList() {
         try (BufferedReader br = new BufferedReader(new FileReader("contacts.csv"))) {
-
             String line;
             int lineNumber = 0;
             while ((line = br.readLine()) != null) {
@@ -368,7 +368,9 @@ public class Menu extends Contact {
             System.out.println(ConsoleColors.GREEN + "  -- Menu --");
             System.out.println("1. Trier par prénom");
             System.out.println("2. Trier par nom");
-            System.out.println("r. Retour" + ConsoleColors.DEFAULT);
+            System.out.println("3. Trier par mail");
+            System.out.println("4. Trier par date de naissance");
+            System.out.println("q. Retour" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();
             switch (input) {
@@ -378,8 +380,15 @@ public class Menu extends Contact {
                 case "2":
                     triContactNom();
                     break;
-                case "r":
+                case "3":
+                    triContactMail();
+                    break;
+                case "4":
+                    triContactBirthday();
+                    break;
+                case "q":
                     retour();
+                    return;
             }
         }while (true);
     }
@@ -388,19 +397,35 @@ public class Menu extends Contact {
         displayMenu();
     }
     public static void triContactPrenom(){
-        Contact.sortContactListPrenom();
+        Collections.sort(Contact.contactList, Contact.ComparatorPrenom);
+        for(Contact c:Contact.contactList)
+        System.out.println(c);
         System.out.println("Vous avez choisi le tri par prénom." + ConsoleColors.YELLOW);
     }
 
 
     public static void triContactNom(){
-        Contact.sortContactListNom();
+        //Contact.sortContactListNom();
+        Collections.sort(Contact.contactList, Contact.ComparatorNom);
+        for(Contact c:Contact.contactList)
+        System.out.println(c);
         System.out.println("Vous avez choisi le tri par nom.");
     }
 
 
+    public static void triContactMail(){
+        //Contact.sortContactListBirthday();
+        Collections.sort(Contact.contactList, Contact.ComparatorMail);
+        for(Contact c:Contact.contactList)
+        System.out.println(c);
+        System.out.println("Vous avez choisi le tri par mail.");
+    }
+
     public static void triContactBirthday(){
-        Contact.sortContactListBirthday();
+        //Contact.sortContactListBirthday();
+        Collections.sort(Contact.contactList, Contact.ComparatorBirthday);
+        for(Contact c:Contact.contactList)
+        System.out.println(c);
         System.out.println("Vous avez choisi le tri par date de naissance.");
     }
 }

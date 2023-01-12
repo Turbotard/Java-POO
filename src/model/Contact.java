@@ -70,7 +70,7 @@ public class Contact {
 
         @Override
         public int compare(Contact e1, Contact e2) {
-            return e1.getFirstname().compareTo(e2.getFirstname());
+            return e1.getFirstname().toLowerCase().compareTo(e2.getFirstname().toLowerCase());
         }
     };
 
@@ -78,7 +78,7 @@ public class Contact {
 
         @Override
         public int compare(Contact e1, Contact e2) {
-            return e1.getLastname().compareTo(e2.getLastname());
+            return e1.getLastname().toLowerCase().compareTo(e2.getLastname().toLowerCase());
         }
     };
 

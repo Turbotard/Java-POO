@@ -99,6 +99,24 @@ public class Contact {
         Collections.sort(contactList, BIRTHDAY_COMPARATOR);
     }
 
+    static boolean contactExist(String firstname, String lastname) {
+        for (Contact contact : contactList) {
+            if (contact.getFirstname().equals(firstname) && contact.getLastname().equals(lastname)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static boolean numberExist(String number) {
+        for (Contact contact : contactList) {
+            if (contact.getNumber().equals(number)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         StringBuilder build = new StringBuilder();

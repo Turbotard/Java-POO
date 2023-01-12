@@ -91,37 +91,56 @@ public class Menu extends Contact {
                     System.out.println("Entrez le nouveau prénom :");
                     try {
                         contactToEdit.setFirstname(CustomUtils.getUserInput());
-                        System.out
-                                .println(ConsoleColors.YELLOW + "Prénom modifié avec succès !" + ConsoleColors.DEFAULT);
+                        if (!Contact.contactExist(contactToEdit.getFirstname(), contactToEdit.getLastname())) {
+                            System.out
+                                    .println(ConsoleColors.YELLOW + "Prénom modifié avec succès !"
+                                            + ConsoleColors.DEFAULT);
+                        } else {
+                            System.out.println(ConsoleColors.RED + "Le contact " + contactToEdit.getFirstname() + " "
+                                    + contactToEdit.getLastname() + " existe déjà." + ConsoleColors.DEFAULT);
+                        }
                     } catch (ParseException e) {
                         System.out.println(
                                 ConsoleColors.RED + "Le format du prénom est incorrect" + ConsoleColors.DEFAULT);
-                        break;
                     }
                     break;
                 case "2":
                     System.out.println("Entrez le nouveau nom :");
                     try {
                         contactToEdit.setLastname(CustomUtils.getUserInput());
-                        System.out.println(ConsoleColors.YELLOW + "Nom modifié avec succès !" + ConsoleColors.DEFAULT);
+
+                        if (!Contact.contactExist(contactToEdit.getFirstname(), contactToEdit.getLastname())) {
+                            System.out
+                                    .println(ConsoleColors.YELLOW + "Nom modifié avec succès !"
+                                            + ConsoleColors.DEFAULT);
+                        } else {
+                            System.out.println(ConsoleColors.RED + "Le contact " + contactToEdit.getFirstname() + " "
+                                    + contactToEdit.getLastname() + " existe déjà." + ConsoleColors.DEFAULT);
+                        }
                     } catch (ParseException e) {
                         System.out
                                 .println(ConsoleColors.RED + "Le format du nom est incorrect" + ConsoleColors.DEFAULT);
-                        break;
                     }
                     break;
                 case "3":
                     System.out.println("Entrez le nouveau numéro de téléphone :");
                     try {
                         contactToEdit.setNumber(CustomUtils.getUserInput());
-                        System.out.println(ConsoleColors.YELLOW + "Numéro de téléphone modifié avec succès !"
-                                + ConsoleColors.DEFAULT);
+                        if (!Contact.numberExist(contactToEdit.getNumber())) {
+                            System.out
+                                    .println(ConsoleColors.YELLOW + "Numéro de téléphone modifié avec succès !"
+                                            + ConsoleColors.DEFAULT);
+                        } else {
+                            System.out
+                                    .println(ConsoleColors.RED + "Un contact a déjà ce numéro" + ConsoleColors.DEFAULT);
+                        }
+
                     } catch (ParseException e) {
                         System.out.println(ConsoleColors.RED + "Le format du numéro de téléphone est incorrect"
                                 + ConsoleColors.DEFAULT);
-                        break;
                     }
                     break;
+
                 case "4":
                     System.out.println("Entrez la nouvelle adresse email :");
                     try {
@@ -179,39 +198,51 @@ public class Menu extends Contact {
     }
 
     public static void createContact() {
-        Contact contact = new Contact();
+        Contact newContact = new Contact();
 
         do {
-            try {
-                System.out.println("Entrez le prénom du contact :");
-                String firsnameInput = CustomUtils.getUserInput();
-                contact.setFirstname(firsnameInput);
+            do {
+                try {
+                    System.out.println("Entrez le prénom du contact :");
+                    String firsnameInput = CustomUtils.getUserInput();
+                    newContact.setFirstname(firsnameInput);
 
+                    break;
+                } catch (ParseException e) {
+                    System.out.println(ConsoleColors.RED + "Le format du prénom est incorrect" + ConsoleColors.DEFAULT);
+                }
+            } while (true);
+
+            do {
+                try {
+                    System.out.println("Entrez le nom du contact :");
+                    String lastnameInput = CustomUtils.getUserInput();
+                    newContact.setLastname(lastnameInput);
+
+                    break;
+                } catch (ParseException e) {
+                    System.out.println(ConsoleColors.RED + "Le format du nom est incorrect" + ConsoleColors.DEFAULT);
+                }
+            } while (true);
+
+            if (!contactExist(newContact.getFirstname(), newContact.getLastname())) {
                 break;
-            } catch (ParseException e) {
-                System.out.println(ConsoleColors.RED + "Le format du prénom est incorrect" + ConsoleColors.DEFAULT);
             }
-        } while (true);
-
-        do {
-            try {
-                System.out.println("Entrez le nom du contact :");
-                String lastnameInput = CustomUtils.getUserInput();
-                contact.setLastname(lastnameInput);
-
-                break;
-            } catch (ParseException e) {
-                System.out.println(ConsoleColors.RED + "Le format du nom est incorrect" + ConsoleColors.DEFAULT);
-            }
+            System.out.println(ConsoleColors.RED + "Le contact " + newContact.getFirstname() + " "
+                    + newContact.getLastname() + " existe déjà." + ConsoleColors.DEFAULT);
         } while (true);
 
         do {
             try {
                 System.out.println("Entrez le numéro du contact :");
                 String numberInput = CustomUtils.getUserInput();
-                contact.setNumber(numberInput);
+                newContact.setNumber(numberInput);
 
-                break;
+                if (!Contact.numberExist(newContact.getNumber())) {
+                    break;
+                }
+                System.out.println(ConsoleColors.RED + "Un contact a déjà ce numéro" + ConsoleColors.DEFAULT);
+
             } catch (ParseException e) {
                 System.out.println(ConsoleColors.RED + "Le format du numéro est incorrect" + ConsoleColors.DEFAULT);
             }
@@ -221,7 +252,7 @@ public class Menu extends Contact {
             try {
                 System.out.println("Entrez le mail du contact :");
                 String mailInput = CustomUtils.getUserInput();
-                contact.setMail(mailInput);
+                newContact.setMail(mailInput);
 
                 break;
             } catch (ParseException e) {
@@ -233,7 +264,7 @@ public class Menu extends Contact {
             try {
                 System.out.println("Entrez la date de naissance du contact dans le format jj/mm/aaaa :");
                 String birthdayInput = CustomUtils.getUserInput();
-                contact.setBirthday(birthdayInput);
+                newContact.setBirthday(birthdayInput);
 
                 break;
             } catch (ParseException e) {
@@ -241,7 +272,7 @@ public class Menu extends Contact {
             }
         } while (true);
 
-        addToContactList(contact);
+        addToContactList(newContact);
     }
 
     public static void quit() {

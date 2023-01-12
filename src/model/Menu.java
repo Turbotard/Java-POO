@@ -59,7 +59,7 @@ public class Menu {
                     edit();
                     break;
                 case "5":
-                    findContactByFirstName();
+                    displayMenuSearch();
                     break;
                 case "6":
                     delete();
@@ -457,6 +457,75 @@ public class Menu {
         }
     }
 
+    public static void findContactByNumber() {
+        System.out.println("Entrez le début du numéro de téléphone du contact à chercher :");
+        String numberInput = CustomUtils.getUserInput();
+
+        ArrayList<Contact> filteredList = Contact.contactList.stream()
+                .filter(o -> o.getNumber().startsWith(numberInput))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (filteredList.size() > 0) {
+
+            System.out.println(ConsoleColors.DARK_GREEN + "Voici le/les contacts trouvés :" + ConsoleColors.DEFAULT);
+            System.out.println(ConsoleColors.YELLOW);
+            for (Contact c : filteredList) {
+                displayContact(c);
+            }
+            System.out.println(ConsoleColors.DEFAULT);
+
+        } else {
+            System.out.println(
+                    ConsoleColors.RED + "Aucun contact ne correspond à votre recherche !" + ConsoleColors.DEFAULT);
+        }
+    }
+
+    public static void findContactByLastname() {
+        System.out.println("Entrez le début du prénom du contact à chercher :");
+        String lastNameInput = CustomUtils.getUserInput();
+
+        ArrayList<Contact> filteredList = Contact.contactList.stream()
+                .filter(o -> o.getLastname().startsWith(lastNameInput))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (filteredList.size() > 0) {
+
+            System.out.println(ConsoleColors.DARK_GREEN + "Voici le/les contacts trouvés :" + ConsoleColors.DEFAULT);
+            System.out.println(ConsoleColors.YELLOW);
+            for (Contact c : filteredList) {
+                displayContact(c);
+            }
+            System.out.println(ConsoleColors.DEFAULT);
+
+        } else {
+            System.out.println(
+                    ConsoleColors.RED + "Aucun contact ne correspond à votre recherche !" + ConsoleColors.DEFAULT);
+        }
+    }
+    
+    public static void findContactByMail() {
+        System.out.println("Entrez le début du mail du contact à chercher :");
+        String mailInput = CustomUtils.getUserInput();
+
+        ArrayList<Contact> filteredList = Contact.contactList.stream()
+                .filter(o -> o.getMail().startsWith(mailInput))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (filteredList.size() > 0) {
+
+            System.out.println(ConsoleColors.DARK_GREEN + "Voici le/les contacts trouvés :" + ConsoleColors.DEFAULT);
+            System.out.println(ConsoleColors.YELLOW);
+            for (Contact c : filteredList) {
+                displayContact(c);
+            }
+            System.out.println(ConsoleColors.DEFAULT);
+
+        } else {
+            System.out.println(
+                    ConsoleColors.RED + "Aucun contact ne correspond à votre recherche !" + ConsoleColors.DEFAULT);
+        }
+    }
+
     public static void displayMenuTriOrder() throws ParseException {
         do {
             System.out.println(ConsoleColors.GREEN + "  -- Menu tri --");
@@ -490,5 +559,39 @@ public class Menu {
         }
         
         System.out.println(ConsoleColors.YELLOW + "Vous avez choisi le tri par " + Contact.contactListSort + " par ordre " + orderText + ConsoleColors.DEFAULT);
+    }
+
+    public static void displayMenuSearch() throws ParseException {
+        do {
+            System.out.println(ConsoleColors.GREEN + "  -- Menu tri --");
+            System.out.println("1. Rechercher par prénom");
+            System.out.println("2. Rechercher par nom");
+            System.out.println("3. Rechercher par mail");
+            System.out.println("4. Rechercher par date de naissance");
+            System.out.println("q. Quitter menu tri" + ConsoleColors.DEFAULT);
+
+            String input = CustomUtils.getUserInput();
+            switch (input) {
+                case "1":
+                    findContactByFirstName();
+                    break;
+                case "2":
+                    findContactByLastname();
+                    break;
+                case "3":
+                    findContactByMail();
+                    break;
+                case "4":
+                    findContactByNumber();
+                    break;
+                case "q":
+                    System.out.println(ConsoleColors.RED + "Fermeture du menu de tri" + ConsoleColors.DEFAULT);
+                    contactListToCsv();
+                    return;
+                default:
+                    System.out.println(ConsoleColors.RED + "Veuillez entrer un choix valide" + ConsoleColors.DEFAULT);
+                    break;
+            }
+        } while (true);
     }
 }

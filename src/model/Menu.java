@@ -291,11 +291,13 @@ public class Menu {
     }
 
     public static void delete() {
+        Contact.contactList.clear();
         csvToContactList();
 
         System.out.println("Entrez le prénom du contact à supprimer :");
         String firsnameInput = CustomUtils.getUserInput();
         System.out.println("Entrez le nom du contact à supprimer :");
+        System.out.println("test");
         String lastnameInput = CustomUtils.getUserInput();
         deleteContact(firsnameInput, lastnameInput);
     }

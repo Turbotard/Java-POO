@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -59,7 +60,7 @@ public class Menu {
                     displayMenuSearch();
                     break;
                 case "6":
-                    delete();
+                    displayMenuDelete();
                     break;
                 case "q":
                     quit();
@@ -313,6 +314,12 @@ public class Menu {
             System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " | " + lastName
                     + " n'existe pas." + ConsoleColors.DEFAULT);
         }
+    }
+
+    public static void deleteAll(){
+        Contact.contactList.removeAll(Contact.contactList);
+        contactListToCsv();
+        System.out.println(ConsoleColors.RED + "Tout les contacts ont été supprimés"  + ConsoleColors.DEFAULT);
     }
 
     public static void displaySpecificContact(String prenom, String nom) {
@@ -584,6 +591,32 @@ public class Menu {
                 case "4":
                     findContactByNumber();
                     break;
+                case "q":
+                    System.out.println(ConsoleColors.RED + "Fermeture du menu de tri" + ConsoleColors.DEFAULT);
+                    contactListToCsv();
+                    return;
+                default:
+                    System.out.println(ConsoleColors.RED + "Veuillez entrer un choix valide" + ConsoleColors.DEFAULT);
+                    break;
+            }
+        } while (true);
+    }
+
+    public static void displayMenuDelete() throws ParseException {
+        do {
+            System.out.println(ConsoleColors.GREEN + "  -- Menu supprimer --");
+            System.out.println("1. Supprimer un contact");
+            System.out.println("2. Supprimer tout les contacts");
+            System.out.println("q. Quitter Menu de Recherche" + ConsoleColors.DEFAULT);
+
+            String input = CustomUtils.getUserInput();
+            switch (input) {
+                case "1":
+                    delete();
+                    return;
+                case "2":
+                    deleteAll();
+                    return;
                 case "q":
                     System.out.println(ConsoleColors.RED + "Fermeture du menu de tri" + ConsoleColors.DEFAULT);
                     contactListToCsv();

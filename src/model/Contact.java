@@ -10,7 +10,6 @@ import java.util.regex.Matcher;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Contact  {
     private static final String NAME_PATTERN = "^[a-zA-Z]+(([\\'\\,\\.\\-][a-zA-Z])?[a-zA-Z]*)*$";
     private static final String PHONE_NUMBER_PATTERN = "(0|\\+33|0033)[1-9][0-9]{8}";
     private static final String MAIL_PATTERN = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
@@ -113,7 +112,13 @@ public class Contact  {
     static void sortContactListNom() {
         Contact.contactList.clear();
         Menu.csvToContactList();
-        Collections.sort(contactList, (o1, o2) -> o1.getLastname().compareTo(o2.getLastname()));
+        Collections.sort(contactList, LASTNAME_COMPARATOR);
+    }
+
+    static void sortContactListMail() {
+        Contact.contactList.clear();
+        Menu.csvToContactList();
+        Collections.sort(contactList, MAIL_COMPARATOR);
     }
 
     static void sortContactListBirthday() {

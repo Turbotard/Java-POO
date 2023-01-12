@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Scanner;
 import java.text.ParseException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,7 +10,8 @@ import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Menu {
     public static Map<String, String> MONTHS = new HashMap<String, String>() {
@@ -39,7 +39,8 @@ public class Menu {
             System.out.println("2. Afficher les contacts");
             System.out.println("3. Trier les contacts");
             System.out.println("4. Modifier un contact");
-            System.out.println("5. Supprimer un contact");
+            System.out.println("5. Rechercher les contacts");
+            System.out.println("6. Supprimer un contact");
             System.out.println("q. Quitter le menu" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();
@@ -58,6 +59,9 @@ public class Menu {
                     edit();
                     break;
                 case "5":
+                    findContactByFirstName();
+                    break;
+                case "6":
                     delete();
                     break;
                 case "q":
@@ -72,6 +76,7 @@ public class Menu {
 
     public static void displayEditMenu(Contact contactToEdit) {
         do {
+            displayContact(contactToEdit);
             System.out.println(ConsoleColors.GREEN + "  -- Quel valeur voulez-vous modifier ? --");
             System.out.println("1. Prénom");
             System.out.println("2. Nom");
@@ -311,7 +316,6 @@ public class Menu {
             displayContact(contact);
         }
 
-        
     }
 
     static void contactListToCsv() {
@@ -361,16 +365,12 @@ public class Menu {
         }
     }
 
-    
-
-    public static void displayMenuTri() throws ParseException{
+    public static void displayMenuTri() throws ParseException {
         do {
-            System.out.println(ConsoleColors.GREEN + "  -- Menu --");
+            System.out.println(ConsoleColors.GREEN + "  -- Menu tri --");
             System.out.println("1. Trier par prénom");
             System.out.println("2. Trier par nom");
-            System.out.println("3. Trier par mail");
-            System.out.println("4. Trier par date de naissance");
-            System.out.println("q. Retour" + ConsoleColors.DEFAULT);
+            System.out.println("q. Quitter menu tri" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();
             switch (input) {
@@ -380,52 +380,47 @@ public class Menu {
                 case "2":
                     triContactNom();
                     break;
-                case "3":
-                    triContactMail();
-                    break;
-                case "4":
-                    triContactBirthday();
-                    break;
                 case "q":
-                    retour();
                     return;
             }
-        }while (true);
+        } while (true);
     }
 
-    public static void retour() throws ParseException{
-        displayMenu();
-    }
-    public static void triContactPrenom(){
-        Collections.sort(Contact.contactList, Contact.ComparatorPrenom);
-        for(Contact c:Contact.contactList)
-        System.out.println(c);
-        System.out.println("Vous avez choisi le tri par prénom." + ConsoleColors.YELLOW);
+    public static void triContactPrenom() {
+        Contact.sortContactListPrenom();
+        System.out.println(ConsoleColors.YELLOW + "Vous avez choisi le tri par prénom." + ConsoleColors.DEFAULT);
     }
 
-
-    public static void triContactNom(){
-        //Contact.sortContactListNom();
-        Collections.sort(Contact.contactList, Contact.ComparatorNom);
-        for(Contact c:Contact.contactList)
-        System.out.println(c);
-        System.out.println("Vous avez choisi le tri par nom.");
+    public static void triContactNom() {
+        Contact.sortContactListNom();
+        System.out.println(ConsoleColors.YELLOW + "Vous avez choisi le tri par nom." + ConsoleColors.DEFAULT);
     }
 
-
-    public static void triContactMail(){
-        //Contact.sortContactListBirthday();
-        Collections.sort(Contact.contactList, Contact.ComparatorMail);
-        for(Contact c:Contact.contactList)
-        System.out.println(c);
-        System.out.println("Vous avez choisi le tri par mail.");
-    }
-
-    public static void triContactBirthday(){
-        //Contact.sortContactListBirthday();
-        Collections.sort(Contact.contactList, Contact.ComparatorBirthday);
-        for(Contact c:Contact.contactList)
-        System.out.println(c);
+    public static void triContactBirthday() {
+        Contact.sortContactListBirthday();
         System.out.println("Vous avez choisi le tri par date de naissance.");
+    }
+
+    public static void findContactByFirstName() {
+        System.out.println("Entrez le début du prénom du contact à chercher :");
+        String firstNameInput = CustomUtils.getUserInput();
+
+        ArrayList<Contact> filteredList = Contact.contactList.stream()
+                .filter(o -> o.getFirstname().startsWith(firstNameInput))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (filteredList.size() > 0) {
+
+            System.out.println(ConsoleColors.DARK_GREEN + "Voici le/les contacts trouvés :" + ConsoleColors.DEFAULT);
+            System.out.println(ConsoleColors.YELLOW);
+            for (Contact c : filteredList) {
+                displayContact(c);
+            }
+            System.out.println(ConsoleColors.DEFAULT);
+
+        } else {
+            System.out.println(
+                    ConsoleColors.RED + "Aucun contact ne correspond à votre recherche !" + ConsoleColors.DEFAULT);
+        }
     }
 }

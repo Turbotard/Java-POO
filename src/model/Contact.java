@@ -119,7 +119,7 @@ public class Contact {
 
     static boolean contactExist(String firstname, String lastname) {
         for (Contact contact : contactList) {
-            if (contact.getFirstname().equals(firstname) && contact.getLastname().equals(lastname)) {
+            if (contact.getFirstname().toLowerCase().equals(firstname.toLowerCase()) && contact.getLastname().toLowerCase().equals(lastname.toLowerCase())) {
                 return true;
             }
         }

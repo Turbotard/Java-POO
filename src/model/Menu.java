@@ -7,10 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Menu {
@@ -442,7 +439,7 @@ public class Menu {
         String firstNameInput = CustomUtils.getUserInput();
 
         ArrayList<Contact> filteredList = Contact.contactList.stream()
-                .filter(o -> o.getFirstname().startsWith(firstNameInput))
+                .filter(o -> o.getFirstname().toLowerCase().startsWith(firstNameInput.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         if (filteredList.size() > 0) {
@@ -488,7 +485,7 @@ public class Menu {
         String lastNameInput = CustomUtils.getUserInput();
 
         ArrayList<Contact> filteredList = Contact.contactList.stream()
-                .filter(o -> o.getLastname().startsWith(lastNameInput))
+                .filter(o -> o.getLastname().toLowerCase().startsWith(lastNameInput.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         if (filteredList.size() > 0) {
@@ -511,7 +508,7 @@ public class Menu {
         String mailInput = CustomUtils.getUserInput();
 
         ArrayList<Contact> filteredList = Contact.contactList.stream()
-                .filter(o -> o.getMail().startsWith(mailInput))
+                .filter(o -> o.getMail().toLowerCase().startsWith(mailInput.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         if (filteredList.size() > 0) {
@@ -566,12 +563,12 @@ public class Menu {
 
     public static void displayMenuSearch() throws ParseException {
         do {
-            System.out.println(ConsoleColors.GREEN + "  -- Menu tri --");
+            System.out.println(ConsoleColors.GREEN + "  -- Menu de Recherche --");
             System.out.println("1. Rechercher par prénom");
             System.out.println("2. Rechercher par nom");
             System.out.println("3. Rechercher par mail");
             System.out.println("4. Rechercher par numéro de téléphone");
-            System.out.println("q. Quitter menu tri" + ConsoleColors.DEFAULT);
+            System.out.println("q. Quitter Menu de Recherche" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();
             switch (input) {

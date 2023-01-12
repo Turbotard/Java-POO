@@ -301,6 +301,16 @@ public class Menu {
         deleteContact(firsnameInput, lastnameInput);
     }
 
+    public static void deleteNumber() {
+        Contact.contactList.clear();
+        csvToContactList();
+
+
+        System.out.println("Entrez le numéro de téléphone du contact à supprimer :");
+        String numberInput = CustomUtils.getUserInput();
+        deleteContactByNumber(numberInput);
+    }
+
     public static void deleteContact(String firstName, String lastName) {
         Contact contactToRemove = getContact(firstName, lastName);
         if (contactToRemove != null) {
@@ -313,6 +323,20 @@ public class Menu {
         } else {
             System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " | " + lastName
                     + " n'existe pas." + ConsoleColors.DEFAULT);
+        }
+    }
+
+    public static void deleteContactByNumber(String number) {
+        Contact contactToRemove = getContactByNumber(number);
+        if (contactToRemove != null) {
+            Contact.contactList.remove(contactToRemove);
+            contactListToCsv();
+
+            System.out.println(ConsoleColors.RED + "Le contact du nom de " + contactToRemove.getFirstname() + " | " + contactToRemove.getLastname()
+                    + " a été supprimé !" + ConsoleColors.DEFAULT);
+
+        } else {
+            System.out.println(ConsoleColors.RED + "Le contact du numéro de téléphone " + number + " n'existe pas." + ConsoleColors.DEFAULT);
         }
     }
 
@@ -336,6 +360,15 @@ public class Menu {
     static Contact getContact(String prenom, String nom) {
         for (Contact contact : Contact.contactList) {
             if (contact.getFirstname().equals(prenom) && contact.getLastname().equals(nom)) {
+                return contact;
+            }
+        }
+        return null;
+    }
+
+    static Contact getContactByNumber(String number) {
+        for (Contact contact : Contact.contactList) {
+            if (contact.getNumber().equals(number)) {
                 return contact;
             }
         }
@@ -606,7 +639,8 @@ public class Menu {
         do {
             System.out.println(ConsoleColors.GREEN + "  -- Menu supprimer --");
             System.out.println("1. Supprimer un contact");
-            System.out.println("2. Supprimer tout les contacts");
+            System.out.println("2. Supprimer un contact par numéro de télépnoe");
+            System.out.println("3. Supprimer tout les contacts");
             System.out.println("q. Quitter Menu de Recherche" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();
@@ -615,6 +649,9 @@ public class Menu {
                     delete();
                     return;
                 case "2":
+                    deleteNumber();
+                    return;
+                case "3":
                     deleteAll();
                     return;
                 case "q":

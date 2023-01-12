@@ -82,22 +82,26 @@ public class Contact {
         }
     };
 
-    public static void sortContactListByFirstname() {
+    public static void sortContactListByFirstnameC() {
         Collections.sort(Contact.contactList, Contact.FirstnameComparator);
+        System.out.println("Vous avez choisi le tri par prénom.");
     }
 
-    public static void sortContactListByLastname() {
+    public static void sortContactListByLastnameC() {
         Collections.sort(Contact.contactList, Contact.LastnameComparator);
+        System.out.println("Vous avez choisi le tri par nom.");
     }
 
-    public static void sortContactListByMail() {
+    public static void sortContactListByMailC() {
         Mail mail = new Mail();
         Collections.sort(contactList, mail);
+        System.out.println("Vous avez choisi le tri par mail.");
     };
 
-    public static void sortContactListByBirthday() {
+    public static void sortContactListByBirthdayC() {
         Birthday birthday = new Birthday();
         Collections.sort(contactList, birthday);
+        System.out.println("Vous avez choisi le tri par date de naissance.");
     }
     /*
      * static void sortContactListPrenom() {

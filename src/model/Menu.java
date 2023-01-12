@@ -296,7 +296,6 @@ public class Menu {
         System.out.println("Entrez le prénom du contact à supprimer :");
         String firsnameInput = CustomUtils.getUserInput();
         System.out.println("Entrez le nom du contact à supprimer :");
-        System.out.println("test");
         String lastnameInput = CustomUtils.getUserInput();
         deleteContact(firsnameInput, lastnameInput);
     }
@@ -637,11 +636,11 @@ public class Menu {
 
     public static void displayMenuDelete() throws ParseException {
         do {
-            System.out.println(ConsoleColors.GREEN + "  -- Menu supprimer --");
+            System.out.println(ConsoleColors.GREEN + "  -- Menu de suppression --");
             System.out.println("1. Supprimer un contact");
             System.out.println("2. Supprimer un contact par numéro de télépnoe");
             System.out.println("3. Supprimer tout les contacts");
-            System.out.println("q. Quitter Menu de Recherche" + ConsoleColors.DEFAULT);
+            System.out.println("q. Quitter Menu de suppression" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();
             switch (input) {

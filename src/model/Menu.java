@@ -7,13 +7,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class Menu extends Contact {
+public class Menu {
     public static Map<String, String> MONTHS = new HashMap<String, String>() {
         {
             put("Jan", "1");
@@ -363,7 +363,6 @@ public class Menu extends Contact {
 
     static void csvToContactList() {
         try (BufferedReader br = new BufferedReader(new FileReader("contacts.csv"))) {
-
             String line;
             int lineNumber = 0;
             while ((line = br.readLine()) != null) {

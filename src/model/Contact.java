@@ -2,22 +2,13 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.Collections;
 import java.util.Comparator;
-
-public class Contact {
-    public static final Comparator<Contact> FIRSTNAME_COMPARATOR = (Contact o1, Contact o2) -> o1.getFirstname()
-            .compareTo(o2.getFirstname());
-    public static final Comparator<Contact> LASTNAME_COMPARATOR = (Contact o1, Contact o2) -> o1.getLastname()
-            .compareTo(o2.getLastname());
-    public static final Comparator<Contact> MAIL_COMPARATOR = (Contact o1, Contact o2) -> o1.getMail()
-            .compareTo(o2.getMail());
-    public static final Comparator<Contact> BIRTHDAY_COMPARATOR = (Contact o1, Contact o2) -> o1.getBirthday()
-            .compareTo(o2.getBirthday());
 
     private static final String NAME_PATTERN = "^[a-zA-Z]+(([\\'\\,\\.\\-][a-zA-Z])?[a-zA-Z]*)*$";
     private static final String PHONE_NUMBER_PATTERN = "(0|\\+33|0033)[1-9][0-9]{8}";
@@ -75,10 +66,47 @@ public class Contact {
         this._birthday = dateFormat.parse(_birthday);
     }
 
-    static void sortContactListPrenom() {
+        public static Comparator<Contact> ComparatorPrenom = new Comparator<Contact>() {
+ 
+            @Override
+            public int compare(Contact e1, Contact e2) {
+            return e1.getFirstname().compareTo(e2.getFirstname());
+            }
+        };
+
+        public static Comparator<Contact> ComparatorNom = new Comparator<Contact>() {
+ 
+            @Override
+            public int compare(Contact e1, Contact e2) {
+            return e1.getLastname().compareTo(e2.getLastname());
+            }
+        };
+
+        public static void ComparatorMail() throws Exception{
+            try{
+                ArrayList<Contact> list = contactList;
+                Mail mail = new Mail();
+                Collections.sort(list, mail);
+            } catch (Exception e) {
+                System.out.println("edrtfyguhi");
+            }
+        };
+        
+        public static void ComparatorBirthday() throws Exception {
+
+            try {
+                ArrayList<Contact> list = contactList;
+                Birthday birthday = new Birthday();
+                Collections.sort(list, birthday);
+            } catch (Exception e) {
+                System.out.println("azertyui");
+            }
+        }
+    /*static void sortContactListPrenom() {
         Contact.contactList.clear();
         Menu.csvToContactList();
-        Collections.sort(contactList, FIRSTNAME_COMPARATOR);
+        Collections.sort(contactList, (o1, o2) -> o1.getFirstname().compareTo(o2.getFirstname()));
+        System.out.println(contactList);
     }
 
     static void sortContactListNom() {
@@ -96,8 +124,8 @@ public class Contact {
     static void sortContactListBirthday() {
         Contact.contactList.clear();
         Menu.csvToContactList();
-        Collections.sort(contactList, BIRTHDAY_COMPARATOR);
-    }
+        Collections.sort(contactList, (o1, o2) -> o1.getBirthday().compareTo(o2.getBirthday()));
+    }*/
 
     static boolean contactExist(String firstname, String lastname) {
         for (Contact contact : contactList) {

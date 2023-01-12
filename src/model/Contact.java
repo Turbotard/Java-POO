@@ -2,11 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -87,20 +84,20 @@ public class Contact {
         isReversed = false;
         contactListSort = "prénom";
     }
- 
+
     public static void sortContactListByLastname() {
         Collections.sort(Contact.contactList, Contact.LastnameComparator);
         isReversed = false;
         contactListSort = "nom";
     }
-    
+
     public static void sortContactListByMail() {
         Mail mail = new Mail();
         Collections.sort(contactList, mail);
         isReversed = false;
         contactListSort = "mail";
     };
-    
+
     public static void sortContactListByBirthday() {
         Birthday birthday = new Birthday();
         Collections.sort(contactList, birthday);
@@ -116,10 +113,10 @@ public class Contact {
         isReversed = true;
     }
 
-
     static boolean contactExist(String firstname, String lastname) {
         for (Contact contact : contactList) {
-            if (contact.getFirstname().toLowerCase().equals(firstname.toLowerCase()) && contact.getLastname().toLowerCase().equals(lastname.toLowerCase())) {
+            if (contact.getFirstname().toLowerCase().equals(firstname.toLowerCase())
+                    && contact.getLastname().toLowerCase().equals(lastname.toLowerCase())) {
                 return true;
             }
         }

@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.Collections;
 import java.util.Comparator;
 
+public class Contact {
     private static final String NAME_PATTERN = "^[a-zA-Z]+(([\\'\\,\\.\\-][a-zA-Z])?[a-zA-Z]*)*$";
     private static final String PHONE_NUMBER_PATTERN = "(0|\\+33|0033)[1-9][0-9]{8}";
     private static final String MAIL_PATTERN = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
@@ -66,66 +67,67 @@ import java.util.Comparator;
         this._birthday = dateFormat.parse(_birthday);
     }
 
-        public static Comparator<Contact> ComparatorPrenom = new Comparator<Contact>() {
- 
-            @Override
-            public int compare(Contact e1, Contact e2) {
+    public static Comparator<Contact> FirstnameComparator = new Comparator<Contact>() {
+
+        @Override
+        public int compare(Contact e1, Contact e2) {
             return e1.getFirstname().compareTo(e2.getFirstname());
-            }
-        };
-
-        public static Comparator<Contact> ComparatorNom = new Comparator<Contact>() {
- 
-            @Override
-            public int compare(Contact e1, Contact e2) {
-            return e1.getLastname().compareTo(e2.getLastname());
-            }
-        };
-
-        public static void ComparatorMail() throws Exception{
-            try{
-                ArrayList<Contact> list = contactList;
-                Mail mail = new Mail();
-                Collections.sort(list, mail);
-            } catch (Exception e) {
-                System.out.println("edrtfyguhi");
-            }
-        };
-        
-        public static void ComparatorBirthday() throws Exception {
-
-            try {
-                ArrayList<Contact> list = contactList;
-                Birthday birthday = new Birthday();
-                Collections.sort(list, birthday);
-            } catch (Exception e) {
-                System.out.println("azertyui");
-            }
         }
-    /*static void sortContactListPrenom() {
-        Contact.contactList.clear();
-        Menu.csvToContactList();
-        Collections.sort(contactList, (o1, o2) -> o1.getFirstname().compareTo(o2.getFirstname()));
-        System.out.println(contactList);
+    };
+
+    public static Comparator<Contact> LastnameComparator = new Comparator<Contact>() {
+
+        @Override
+        public int compare(Contact e1, Contact e2) {
+            return e1.getLastname().compareTo(e2.getLastname());
+        }
+    };
+
+    public static void sortContactListByFirstname() {
+        Collections.sort(Contact.contactList, Contact.FirstnameComparator);
     }
 
-    static void sortContactListNom() {
-        Contact.contactList.clear();
-        Menu.csvToContactList();
-        Collections.sort(contactList, LASTNAME_COMPARATOR);
+    public static void sortContactListByLastname() {
+        Collections.sort(Contact.contactList, Contact.LastnameComparator);
     }
 
-    static void sortContactListMail() {
-        Contact.contactList.clear();
-        Menu.csvToContactList();
-        Collections.sort(contactList, MAIL_COMPARATOR);
-    }
+    public static void sortContactListByMail() {
+        Mail mail = new Mail();
+        Collections.sort(contactList, mail);
+    };
 
-    static void sortContactListBirthday() {
-        Contact.contactList.clear();
-        Menu.csvToContactList();
-        Collections.sort(contactList, (o1, o2) -> o1.getBirthday().compareTo(o2.getBirthday()));
-    }*/
+    public static void sortContactListByBirthday() {
+        Birthday birthday = new Birthday();
+        Collections.sort(contactList, birthday);
+    }
+    /*
+     * static void sortContactListPrenom() {
+     * Contact.contactList.clear();
+     * Menu.csvToContactList();
+     * Collections.sort(contactList, (o1, o2) ->
+     * o1.getFirstname().compareTo(o2.getFirstname()));
+     * System.out.println(contactList);
+     * }
+     * 
+     * static void sortContactListNom() {
+     * Contact.contactList.clear();
+     * Menu.csvToContactList();
+     * Collections.sort(contactList, LASTNAME_COMPARATOR);
+     * }
+     * 
+     * static void sortContactListMail() {
+     * Contact.contactList.clear();
+     * Menu.csvToContactList();
+     * Collections.sort(contactList, MAIL_COMPARATOR);
+     * }
+     * 
+     * static void sortContactListBirthday() {
+     * Contact.contactList.clear();
+     * Menu.csvToContactList();
+     * Collections.sort(contactList, (o1, o2) ->
+     * o1.getBirthday().compareTo(o2.getBirthday()));
+     * }
+     */
 
     static boolean contactExist(String firstname, String lastname) {
         for (Contact contact : contactList) {

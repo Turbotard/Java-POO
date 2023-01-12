@@ -57,9 +57,8 @@ public class Contact {
         this._mail = CustomUtils.matchValue(_mail, MAIL_PATTERN, "email invalide");
     }
 
-    public String getBirthday() {
-        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-        return f.format(_birthday);
+    public Date getBirthday() {
+        return _birthday;
     }
 
     public void setBirthday(String _birthday) throws ParseException {
@@ -158,7 +157,9 @@ public class Contact {
         build.append(SEPARATEUR);
         build.append(this.getMail());
         build.append(SEPARATEUR);
-        build.append(this.getBirthday());
+
+        String birthdayString = CustomUtils.dateToString(this.getBirthday());
+        build.append(birthdayString);
 
         return build.toString();
     }

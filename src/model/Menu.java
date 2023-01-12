@@ -293,6 +293,7 @@ public class Menu {
     public static void delete() {
         Contact.contactList.clear();
         csvToContactList();
+        
 
         System.out.println("Entrez le prénom du contact à supprimer :");
         String firsnameInput = CustomUtils.getUserInput();
@@ -569,7 +570,7 @@ public class Menu {
             System.out.println("1. Rechercher par prénom");
             System.out.println("2. Rechercher par nom");
             System.out.println("3. Rechercher par mail");
-            System.out.println("4. Rechercher par date de naissance");
+            System.out.println("4. Rechercher par numéro de téléphone");
             System.out.println("q. Quitter menu tri" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();

@@ -87,9 +87,10 @@ public class Menu {
             switch (input) {
                 case "1":
                     System.out.println("Entrez le nouveau prénom :");
+                    String newFirstname = CustomUtils.getUserInput();
                     try {
-                        contactToEdit.setFirstname(CustomUtils.getUserInput());
-                        if (!Contact.contactExist(contactToEdit.getFirstname(), contactToEdit.getLastname())) {
+                        if (!Contact.contactExist(newFirstname, contactToEdit.getLastname())) {
+                            contactToEdit.setFirstname(newFirstname);
                             System.out
                                     .println(ConsoleColors.YELLOW + "Prénom modifié avec succès !"
                                             + ConsoleColors.DEFAULT);
@@ -104,10 +105,11 @@ public class Menu {
                     break;
                 case "2":
                     System.out.println("Entrez le nouveau nom :");
+                    String newLastname = CustomUtils.getUserInput();
                     try {
-                        contactToEdit.setLastname(CustomUtils.getUserInput());
 
-                        if (!Contact.contactExist(contactToEdit.getFirstname(), contactToEdit.getLastname())) {
+                        if (!Contact.contactExist(contactToEdit.getFirstname(), newLastname)) {
+                            contactToEdit.setLastname(newLastname);
                             System.out
                                     .println(ConsoleColors.YELLOW + "Nom modifié avec succès !"
                                             + ConsoleColors.DEFAULT);
@@ -122,9 +124,10 @@ public class Menu {
                     break;
                 case "3":
                     System.out.println("Entrez le nouveau numéro de téléphone :");
+                    String newNumber = CustomUtils.getUserInput();
                     try {
-                        contactToEdit.setNumber(CustomUtils.getUserInput());
-                        if (!Contact.numberExist(contactToEdit.getNumber())) {
+                        if (!Contact.numberExist(newNumber)) {
+                            contactToEdit.setNumber(newNumber);
                             System.out
                                     .println(ConsoleColors.YELLOW + "Numéro de téléphone modifié avec succès !"
                                             + ConsoleColors.DEFAULT);
@@ -291,7 +294,6 @@ public class Menu {
     public static void delete() {
         Contact.contactList.clear();
         csvToContactList();
-        
 
         System.out.println("Entrez le prénom du contact à supprimer :");
         String firsnameInput = CustomUtils.getUserInput();
@@ -304,7 +306,6 @@ public class Menu {
         Contact.contactList.clear();
         csvToContactList();
 
-
         System.out.println("Entrez le numéro de téléphone du contact à supprimer :");
         String numberInput = CustomUtils.getUserInput();
         deleteContactByNumber(numberInput);
@@ -316,7 +317,7 @@ public class Menu {
             Contact.contactList.remove(contactToRemove);
             contactListToCsv();
 
-            System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " | " + lastName
+            System.out.println(ConsoleColors.YELLOW + "Le contact du nom de " + firstName + " | " + lastName
                     + " a été supprimé !" + ConsoleColors.DEFAULT);
 
         } else {
@@ -331,18 +332,20 @@ public class Menu {
             Contact.contactList.remove(contactToRemove);
             contactListToCsv();
 
-            System.out.println(ConsoleColors.RED + "Le contact du nom de " + contactToRemove.getFirstname() + " | " + contactToRemove.getLastname()
+            System.out.println(ConsoleColors.YELLOW + "Le contact du nom de " + contactToRemove.getFirstname() + " | "
+                    + contactToRemove.getLastname()
                     + " a été supprimé !" + ConsoleColors.DEFAULT);
 
         } else {
-            System.out.println(ConsoleColors.RED + "Le contact du numéro de téléphone " + number + " n'existe pas." + ConsoleColors.DEFAULT);
+            System.out.println(ConsoleColors.RED + "Le contact du numéro de téléphone " + number + " n'existe pas."
+                    + ConsoleColors.DEFAULT);
         }
     }
 
-    public static void deleteAll(){
-        Contact.contactList.removeAll(Contact.contactList);
+    public static void deleteAll() {
+        Contact.contactList.clear();
         contactListToCsv();
-        System.out.println(ConsoleColors.RED + "Tout les contacts ont été supprimés"  + ConsoleColors.DEFAULT);
+        System.out.println(ConsoleColors.YELLOW + "Tout les contacts ont été supprimés" + ConsoleColors.DEFAULT);
     }
 
     public static void displaySpecificContact(String prenom, String nom) {
@@ -541,7 +544,7 @@ public class Menu {
                     ConsoleColors.RED + "Aucun contact ne correspond à votre recherche !" + ConsoleColors.DEFAULT);
         }
     }
-    
+
     public static void findContactByMail() {
         System.out.println("Entrez le début du mail du contact à chercher :");
         String mailInput = CustomUtils.getUserInput();
@@ -596,8 +599,9 @@ public class Menu {
         } else {
             orderText = "croissant";
         }
-        
-        System.out.println(ConsoleColors.YELLOW + "Vous avez choisi le tri par " + Contact.contactListSort + " par ordre " + orderText + ConsoleColors.DEFAULT);
+
+        System.out.println(ConsoleColors.YELLOW + "Vous avez choisi le tri par " + Contact.contactListSort
+                + " par ordre " + orderText + ConsoleColors.DEFAULT);
     }
 
     public static void displayMenuSearch() throws ParseException {

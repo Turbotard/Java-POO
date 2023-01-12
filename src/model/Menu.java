@@ -398,7 +398,6 @@ public class Menu {
 
     public static void displayMenuTri() throws ParseException {
         do {
-            displayAllContacts();
             System.out.println(ConsoleColors.GREEN + "  -- Menu tri --");
             System.out.println("1. Trier par prénom");
             System.out.println("2. Trier par nom");
@@ -409,16 +408,20 @@ public class Menu {
             String input = CustomUtils.getUserInput();
             switch (input) {
                 case "1":
-                    Contact.sortContactListByFirstnameC();
+                    Contact.sortContactListByFirstname();
+                    displayMenuTriOrder();
                     break;
                 case "2":
-                    Contact.sortContactListByLastnameC();
+                    Contact.sortContactListByLastname();
+                    displayMenuTriOrder();
                     break;
                 case "3":
-                    Contact.sortContactListByMailC();
+                    Contact.sortContactListByMail();
+                    displayMenuTriOrder();
                     break;
                 case "4":
-                    Contact.sortContactListByBirthdayC();
+                    Contact.sortContactListByBirthday();
+                    displayMenuTriOrder();
                     break;
                 case "q":
                     System.out.println(ConsoleColors.RED + "Fermeture du menu de tri" + ConsoleColors.DEFAULT);
@@ -452,5 +455,40 @@ public class Menu {
             System.out.println(
                     ConsoleColors.RED + "Aucun contact ne correspond à votre recherche !" + ConsoleColors.DEFAULT);
         }
+    }
+
+    public static void displayMenuTriOrder() throws ParseException {
+        do {
+            System.out.println(ConsoleColors.GREEN + "  -- Menu tri --");
+            System.out.println("1. Trier par ordre croissant");
+            System.out.println("2. Trier par ordre décroisant" + ConsoleColors.DEFAULT);
+
+            String input = CustomUtils.getUserInput();
+            switch (input) {
+                case "1":
+                    contactListToCsv();
+                    displayOrderMessage();
+                    return;
+                case "2":
+                    Contact.reverseContactList();
+                    contactListToCsv();
+                    displayOrderMessage();
+                    return;
+                default:
+                    System.out.println(ConsoleColors.RED + "Veuillez entrer un choix valide" + ConsoleColors.DEFAULT);
+                    break;
+            }
+        } while (true);
+    }
+
+    public static void displayOrderMessage() {
+        String orderText = null;
+        if (Contact.isReversed) {
+            orderText = "décroissant";
+        } else {
+            orderText = "croissant";
+        }
+        
+        System.out.println(ConsoleColors.YELLOW + "Vous avez choisi le tri par " + Contact.contactListSort + " par ordre " + orderText + ConsoleColors.DEFAULT);
     }
 }

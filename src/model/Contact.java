@@ -82,26 +82,38 @@ public class Contact {
         }
     };
 
-    public static void sortContactListByFirstnameC() {
+    public static void sortContactListByFirstname() {
         Collections.sort(Contact.contactList, Contact.FirstnameComparator);
-        System.out.println("Vous avez choisi le tri par prénom.");
+        isReversed = false;
+        contactListSort = "prénom";
     }
-
-    public static void sortContactListByLastnameC() {
+ 
+    public static void sortContactListByLastname() {
         Collections.sort(Contact.contactList, Contact.LastnameComparator);
-        System.out.println("Vous avez choisi le tri par nom.");
+        isReversed = false;
+        contactListSort = "nom";
     }
-
-    public static void sortContactListByMailC() {
+    
+    public static void sortContactListByMail() {
         Mail mail = new Mail();
         Collections.sort(contactList, mail);
-        System.out.println("Vous avez choisi le tri par mail.");
+        isReversed = false;
+        contactListSort = "mail";
     };
-
-    public static void sortContactListByBirthdayC() {
+    
+    public static void sortContactListByBirthday() {
         Birthday birthday = new Birthday();
         Collections.sort(contactList, birthday);
-        System.out.println("Vous avez choisi le tri par date de naissance.");
+        isReversed = false;
+        contactListSort = "date de naissance";
+    }
+
+    public static String contactListSort = null;
+    public static boolean isReversed = false;
+
+    public static void reverseContactList() {
+        Collections.reverse(Contact.contactList);
+        isReversed = true;
     }
     /*
      * static void sortContactListPrenom() {

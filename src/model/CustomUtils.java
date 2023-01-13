@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 public class CustomUtils {
     public static String matchValue(String value, String pattern, String errorMessage) throws ParseException {
@@ -30,5 +31,79 @@ public class CustomUtils {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = formatter.format(date);
         return strDate;
+    }
+
+    public static Contact getRandomContact() {
+        Contact contact = new Contact();
+        try {
+            contact.setFirstname(getRandomFirstname());
+            contact.setLastname(getRandomLastname());
+            contact.setNumber(getRandomNumber());
+            contact.setMail(getRandomMail());
+            contact.setBirthday(getRandomBirthday());
+
+            return contact;
+        } catch (ParseException e) {
+            System.out.println(
+                    ConsoleColors.RED + "Erreur lors de la génération d'un contact aléatoire" + ConsoleColors.DEFAULT);
+
+            return null;
+        }
+    }
+
+    public static String getRandomFirstname() {
+        String[] firstnames = { "Jean", "Pierre", "Paul", "Jacques", "Marie" };
+
+        int randomIndex = (int) (Math.random() * firstnames.length);
+        return firstnames[randomIndex];
+    }
+
+    public static String getRandomLastname() {
+        String[] lastnames = { "Dupont", "Durand", "Martin", "Lefebvre", "Saumon" };
+
+        int randomIndex = (int) (Math.random() * lastnames.length);
+        return lastnames[randomIndex];
+    }
+
+    public static String getRandomNumber() {
+        String phoneNumber = "06";
+        for (int i = 0; i < 8; i++) {
+            int randomDigit = (int) (Math.random() * 10);
+            phoneNumber += randomDigit;
+        }
+        return phoneNumber;
+    }
+
+    public static String getRandomMail() {
+        String[] domains = { "gmail.com", "hotmail.com", "yahoo.com", "laposte.net", "orange.fr" };
+
+        String randomString = "";
+        for (int i = 0; i < 10; i++) {
+            int randomDigit = (int) (Math.random() * 10);
+            randomString += randomDigit;
+        }
+        randomString += "@";
+
+        int randomIndex = (int) (Math.random() * domains.length);
+        randomString += domains[randomIndex];
+        return randomString;
+    }
+
+    public static String getRandomBirthday() {
+        String year = Integer.toString(randint(1900, 2020));
+        String month = Integer.toString(randint(1, 12));
+        String day = Integer.toString(randint(1, 31));
+
+        return day + "/" + month + "/" + year;
+    }
+
+    public static int randint(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("La valeur minimale doit être inférieure à la valeur maximale");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 }

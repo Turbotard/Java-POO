@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,10 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Menu {
@@ -41,6 +39,7 @@ public class Menu {
             System.out.println("4. Modifier un contact");
             System.out.println("5. Rechercher les contacts");
             System.out.println("6. Supprimer un contact");
+            System.out.println("7. Créer un contact aléatoire");
             System.out.println("q. Quitter le menu" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();
@@ -62,7 +61,15 @@ public class Menu {
                     displayMenuSearch();
                     break;
                 case "6":
-                    delete();
+                    displayMenuDelete();
+                    break;
+                case "7":
+                    try {
+                        createRandomContact();
+                    } catch (Exception e) {
+                        System.out.println(ConsoleColors.RED + "Erreur lors de la création d'un contact aléatoire"
+                                + ConsoleColors.DEFAULT);
+                    }
                     break;
                 case "q":
                     quit();
@@ -72,6 +79,33 @@ public class Menu {
                     break;
             }
         } while (true);
+    }
+
+    public static void createRandomContact() throws Exception {
+        if (Contact.contactList.size() < 20) {
+            Contact randomContact;
+            int tries = 0;
+            do {
+                randomContact = CustomUtils.getRandomContact();
+                if (!Contact.contactExist(randomContact.getFirstname(), randomContact.getLastname())
+                        && !Contact.numberExist(randomContact.getNumber())) {
+                    break;
+                }
+                tries++;
+                if (tries > 25) {
+                    Exception e = new Exception("Erreur lors de la création d'un contact aléatoire");
+                    throw e;
+                }
+
+            } while (true);
+
+            addToContactList(randomContact);
+            System.out.println(ConsoleColors.YELLOW + "Le contact " + randomContact.getFirstname() + " "
+                    + randomContact.getLastname() + " a été créé" + ConsoleColors.DEFAULT);
+            contactListToCsv();
+            return;
+        }
+        System.out.println(ConsoleColors.RED + "Vous avez déjà assez de contact" + ConsoleColors.DEFAULT);
     }
 
     public static void displayEditMenu(Contact contactToEdit) {
@@ -89,9 +123,10 @@ public class Menu {
             switch (input) {
                 case "1":
                     System.out.println("Entrez le nouveau prénom :");
+                    String newFirstname = CustomUtils.getUserInput();
                     try {
-                        contactToEdit.setFirstname(CustomUtils.getUserInput());
-                        if (!Contact.contactExist(contactToEdit.getFirstname(), contactToEdit.getLastname())) {
+                        if (!Contact.contactExist(newFirstname, contactToEdit.getLastname())) {
+                            contactToEdit.setFirstname(newFirstname);
                             System.out
                                     .println(ConsoleColors.YELLOW + "Prénom modifié avec succès !"
                                             + ConsoleColors.DEFAULT);
@@ -106,10 +141,11 @@ public class Menu {
                     break;
                 case "2":
                     System.out.println("Entrez le nouveau nom :");
+                    String newLastname = CustomUtils.getUserInput();
                     try {
-                        contactToEdit.setLastname(CustomUtils.getUserInput());
 
-                        if (!Contact.contactExist(contactToEdit.getFirstname(), contactToEdit.getLastname())) {
+                        if (!Contact.contactExist(contactToEdit.getFirstname(), newLastname)) {
+                            contactToEdit.setLastname(newLastname);
                             System.out
                                     .println(ConsoleColors.YELLOW + "Nom modifié avec succès !"
                                             + ConsoleColors.DEFAULT);
@@ -124,9 +160,10 @@ public class Menu {
                     break;
                 case "3":
                     System.out.println("Entrez le nouveau numéro de téléphone :");
+                    String newNumber = CustomUtils.getUserInput();
                     try {
-                        contactToEdit.setNumber(CustomUtils.getUserInput());
-                        if (!Contact.numberExist(contactToEdit.getNumber())) {
+                        if (!Contact.numberExist(newNumber)) {
+                            contactToEdit.setNumber(newNumber);
                             System.out
                                     .println(ConsoleColors.YELLOW + "Numéro de téléphone modifié avec succès !"
                                             + ConsoleColors.DEFAULT);
@@ -300,19 +337,49 @@ public class Menu {
         deleteContact(firsnameInput, lastnameInput);
     }
 
+    public static void deleteNumber() {
+        csvToContactList();
+
+        System.out.println("Entrez le numéro de téléphone du contact à supprimer :");
+        String numberInput = CustomUtils.getUserInput();
+        deleteContactByNumber(numberInput);
+    }
+
     public static void deleteContact(String firstName, String lastName) {
         Contact contactToRemove = getContact(firstName, lastName);
         if (contactToRemove != null) {
             Contact.contactList.remove(contactToRemove);
             contactListToCsv();
 
-            System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " | " + lastName
+            System.out.println(ConsoleColors.YELLOW + "Le contact du nom de " + firstName + " | " + lastName
                     + " a été supprimé !" + ConsoleColors.DEFAULT);
 
         } else {
             System.out.println(ConsoleColors.RED + "Le contact du nom de " + firstName + " | " + lastName
                     + " n'existe pas." + ConsoleColors.DEFAULT);
         }
+    }
+
+    public static void deleteContactByNumber(String number) {
+        Contact contactToRemove = getContactByNumber(number);
+        if (contactToRemove != null) {
+            Contact.contactList.remove(contactToRemove);
+            contactListToCsv();
+
+            System.out.println(ConsoleColors.YELLOW + "Le contact du nom de " + contactToRemove.getFirstname() + " | "
+                    + contactToRemove.getLastname()
+                    + " a été supprimé !" + ConsoleColors.DEFAULT);
+
+        } else {
+            System.out.println(ConsoleColors.RED + "Le contact du numéro de téléphone " + number + " n'existe pas."
+                    + ConsoleColors.DEFAULT);
+        }
+    }
+
+    public static void deleteAll() {
+        Contact.contactList.clear();
+        contactListToCsv();
+        System.out.println(ConsoleColors.YELLOW + "Tout les contacts ont été supprimés" + ConsoleColors.DEFAULT);
     }
 
     public static void displaySpecificContact(String prenom, String nom) {
@@ -329,6 +396,15 @@ public class Menu {
     static Contact getContact(String prenom, String nom) {
         for (Contact contact : Contact.contactList) {
             if (contact.getFirstname().equals(prenom) && contact.getLastname().equals(nom)) {
+                return contact;
+            }
+        }
+        return null;
+    }
+
+    static Contact getContactByNumber(String number) {
+        for (Contact contact : Contact.contactList) {
+            if (contact.getNumber().equals(number)) {
                 return contact;
             }
         }
@@ -363,6 +439,7 @@ public class Menu {
 
     static void csvToContactList() {
         try (BufferedReader br = new BufferedReader(new FileReader("contacts.csv"))) {
+            Contact.contactList.clear();
             String line;
             int lineNumber = 0;
             while ((line = br.readLine()) != null) {
@@ -439,7 +516,7 @@ public class Menu {
         String firstNameInput = CustomUtils.getUserInput();
 
         ArrayList<Contact> filteredList = Contact.contactList.stream()
-                .filter(o -> o.getFirstname().startsWith(firstNameInput))
+                .filter(o -> o.getFirstname().toLowerCase().startsWith(firstNameInput.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         if (filteredList.size() > 0) {
@@ -485,7 +562,7 @@ public class Menu {
         String lastNameInput = CustomUtils.getUserInput();
 
         ArrayList<Contact> filteredList = Contact.contactList.stream()
-                .filter(o -> o.getLastname().startsWith(lastNameInput))
+                .filter(o -> o.getLastname().toLowerCase().startsWith(lastNameInput.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         if (filteredList.size() > 0) {
@@ -508,7 +585,7 @@ public class Menu {
         String mailInput = CustomUtils.getUserInput();
 
         ArrayList<Contact> filteredList = Contact.contactList.stream()
-                .filter(o -> o.getMail().startsWith(mailInput))
+                .filter(o -> o.getMail().toLowerCase().startsWith(mailInput.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         if (filteredList.size() > 0) {
@@ -564,12 +641,12 @@ public class Menu {
 
     public static void displayMenuSearch() throws ParseException {
         do {
-            System.out.println(ConsoleColors.GREEN + "  -- Menu tri --");
+            System.out.println(ConsoleColors.GREEN + "  -- Menu de Recherche --");
             System.out.println("1. Rechercher par prénom");
             System.out.println("2. Rechercher par nom");
             System.out.println("3. Rechercher par mail");
-            System.out.println("4. Rechercher par date de naissance");
-            System.out.println("q. Quitter menu tri" + ConsoleColors.DEFAULT);
+            System.out.println("4. Rechercher par numéro de téléphone");
+            System.out.println("q. Quitter Menu de Recherche" + ConsoleColors.DEFAULT);
 
             String input = CustomUtils.getUserInput();
             switch (input) {
@@ -585,6 +662,36 @@ public class Menu {
                 case "4":
                     findContactByNumber();
                     break;
+                case "q":
+                    System.out.println(ConsoleColors.RED + "Fermeture du menu de tri" + ConsoleColors.DEFAULT);
+                    contactListToCsv();
+                    return;
+                default:
+                    System.out.println(ConsoleColors.RED + "Veuillez entrer un choix valide" + ConsoleColors.DEFAULT);
+                    break;
+            }
+        } while (true);
+    }
+
+    public static void displayMenuDelete() throws ParseException {
+        do {
+            System.out.println(ConsoleColors.GREEN + "  -- Menu de suppression --");
+            System.out.println("1. Supprimer un contact");
+            System.out.println("2. Supprimer un contact par numéro de télépnoe");
+            System.out.println("3. Supprimer tout les contacts");
+            System.out.println("q. Quitter Menu de suppression" + ConsoleColors.DEFAULT);
+
+            String input = CustomUtils.getUserInput();
+            switch (input) {
+                case "1":
+                    delete();
+                    return;
+                case "2":
+                    deleteNumber();
+                    return;
+                case "3":
+                    deleteAll();
+                    return;
                 case "q":
                     System.out.println(ConsoleColors.RED + "Fermeture du menu de tri" + ConsoleColors.DEFAULT);
                     contactListToCsv();

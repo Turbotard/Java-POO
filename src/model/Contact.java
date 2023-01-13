@@ -2,11 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -70,7 +67,7 @@ public class Contact {
 
         @Override
         public int compare(Contact e1, Contact e2) {
-            return e1.getFirstname().compareTo(e2.getFirstname());
+            return e1.getFirstname().toLowerCase().compareTo(e2.getFirstname().toLowerCase());
         }
     };
 
@@ -78,7 +75,7 @@ public class Contact {
 
         @Override
         public int compare(Contact e1, Contact e2) {
-            return e1.getLastname().compareTo(e2.getLastname());
+            return e1.getLastname().toLowerCase().compareTo(e2.getLastname().toLowerCase());
         }
     };
 
@@ -87,20 +84,20 @@ public class Contact {
         isReversed = false;
         contactListSort = "prénom";
     }
- 
+
     public static void sortContactListByLastname() {
         Collections.sort(Contact.contactList, Contact.LastnameComparator);
         isReversed = false;
         contactListSort = "nom";
     }
-    
+
     public static void sortContactListByMail() {
         Mail mail = new Mail();
         Collections.sort(contactList, mail);
         isReversed = false;
         contactListSort = "mail";
     };
-    
+
     public static void sortContactListByBirthday() {
         Birthday birthday = new Birthday();
         Collections.sort(contactList, birthday);
@@ -115,38 +112,11 @@ public class Contact {
         Collections.reverse(Contact.contactList);
         isReversed = true;
     }
-    /*
-     * static void sortContactListPrenom() {
-     * Contact.contactList.clear();
-     * Menu.csvToContactList();
-     * Collections.sort(contactList, (o1, o2) ->
-     * o1.getFirstname().compareTo(o2.getFirstname()));
-     * System.out.println(contactList);
-     * }
-     * 
-     * static void sortContactListNom() {
-     * Contact.contactList.clear();
-     * Menu.csvToContactList();
-     * Collections.sort(contactList, LASTNAME_COMPARATOR);
-     * }
-     * 
-     * static void sortContactListMail() {
-     * Contact.contactList.clear();
-     * Menu.csvToContactList();
-     * Collections.sort(contactList, MAIL_COMPARATOR);
-     * }
-     * 
-     * static void sortContactListBirthday() {
-     * Contact.contactList.clear();
-     * Menu.csvToContactList();
-     * Collections.sort(contactList, (o1, o2) ->
-     * o1.getBirthday().compareTo(o2.getBirthday()));
-     * }
-     */
 
     static boolean contactExist(String firstname, String lastname) {
         for (Contact contact : contactList) {
-            if (contact.getFirstname().equals(firstname) && contact.getLastname().equals(lastname)) {
+            if (contact.getFirstname().toLowerCase().equals(firstname.toLowerCase())
+                    && contact.getLastname().toLowerCase().equals(lastname.toLowerCase())) {
                 return true;
             }
         }

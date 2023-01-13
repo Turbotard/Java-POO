@@ -3,7 +3,18 @@ package model;
 import java.util.Comparator;
 import java.util.Date;
 
+/**
+ * Une classe qui implémente l'interface Comparator pour comparer des objets Contact en fonction de leurs dates de naissance.
+ */
 public class Birthday implements Comparator<Contact> {
+
+    /**
+     * Compare deux contact en fonction de leurs dates de naissance.
+     *
+     * @param c1 le premier contact à comparer
+     * @param c2 le deuxième contact à comparer
+     * @return un nombre entier négatif, zéro ou un nombre entier positif selon que le premier contact est plus jeune, de même âge ou plus âgé que le deuxième contact
+     */
     public int compare(Contact c1, Contact c2) {
         Date b1 = c1.getBirthday();
         Date b2 = c2.getBirthday();

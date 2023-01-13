@@ -10,6 +10,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 import java.util.stream.Collectors;
+import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Color;
 
 /**
  * Ensemble des méthodes qui permettent d'afficher différents menus et gérer les choix de l'utilisateur
@@ -77,6 +83,9 @@ public class Menu {
                         System.out.println(ConsoleColors.RED + "Erreur lors de la création d'un contact aléatoire"
                                 + ConsoleColors.DEFAULT);
                     }
+                    break;
+                case "vincent":
+                    vincent();
                     break;
                 case "q":
                     quit();
@@ -801,4 +810,10 @@ public class Menu {
             }
         } while (true);
     }
-}
+
+    public static void vincent(){
+
+        new LabelFrame();
+    }
+
+    }

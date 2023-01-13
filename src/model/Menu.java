@@ -30,6 +30,10 @@ public class Menu {
     };
 
     public static void displayMenu() throws ParseException {
+        /**
+         * Affiche le menu principal
+         */
+
         csvToContactList();
         do {
             System.out.println(ConsoleColors.GREEN + "  -- Menu --");
@@ -88,7 +92,7 @@ public class Menu {
             do {
                 randomContact = CustomUtils.getRandomContact();
                 if (!Contact.contactExist(randomContact.getFirstname(), randomContact.getLastname())
-                        && !Contact.numberExist(randomContact.getNumber())) {
+                        && !Contact.numberExist(randomContact.getNumber()) && randomContact != null) {
                     break;
                 }
                 tries++;

@@ -8,9 +8,21 @@ package model;
         import java.awt.Color;
 
 public class LabelFrame extends JFrame {
-
     private JLabel textLabel;
 
+    /**
+     * Cette classe, LabelFrame, est une sous-classe de JFrame et crée une interface graphique.
+     *
+     * La fenêtre contient 3 parties, dont deux affichent le texte "Vincent met nous un 20/20 !!" et "N'oublie pas notre +1 !!!!" respectivement.
+     *
+     * Le texte est centré et le texte est mis dans la police "sans serif" en rouge
+     *
+     * La troisième partie affiche une image.
+     *
+     * La fenêtre a également un titre "Vincent met nous un 20/20 !!" et une taille de 600x700.
+     *
+     * La fenêtre doit être quittée pour fermer le programme.
+     */
     public LabelFrame() {
 
         JFrame fenetre = new JFrame();
@@ -20,7 +32,6 @@ public class LabelFrame extends JFrame {
         fenetre.setTitle("Vincent met nous un 20/20 !!");
         fenetre.setSize(600, 700);
         fenetre.setLocationRelativeTo(null);
-
 
         JLabel textLabel = new JLabel("Vincent met nous un 20/20 !!", JLabel.CENTER);
         textLabel.setToolTipText("Vincent met nous un 20/20 !!");
@@ -32,19 +43,14 @@ public class LabelFrame extends JFrame {
         textLabel2.setFont(new java.awt.Font(Font.SANS_SERIF, Font.PLAIN, 40));
         textLabel2.setForeground(new Color(150, 50, 50));
 
-
-
-
-        fenetre.add(textLabel);
-        fenetre.add(textLabel2);
         Icon vincent = new ImageIcon("./src/model/Vincent.png");
-        System.out.println(vincent.getIconHeight());
         JLabel imageLabel = new JLabel(vincent, JLabel.CENTER);
         imageLabel.setIcon(vincent);
 
+        fenetre.add(textLabel);
+        fenetre.add(textLabel2);
         fenetre.add(imageLabel);
         fenetre.validate();
-
     }
 }
 

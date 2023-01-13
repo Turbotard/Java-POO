@@ -811,9 +811,10 @@ public class Menu {
         } while (true);
     }
 
+    /**
+     * Crée et affiche une image dédiée à Vincent
+     */
     public static void vincent(){
-
         new LabelFrame();
     }
-
-    }
+}

@@ -13,14 +13,14 @@ import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Color;
 
 /**
  * Ensemble des méthodes qui permettent d'afficher différents menus et gérer les choix de l'utilisateur
  */
-public class Menu {
+public class Menu extends JFrame {
 
     public static Map<String, String> MONTHS = new HashMap<String, String>() {
         {
@@ -813,11 +813,11 @@ public class Menu {
     }
 
     public static void vincent(){
-        LabelFrame fenetre = new LabelFrame();
-        fenetre.setTitle("Vincent met nous un 20/20 !!");
-        fenetre.setSize(600, 600);
-        fenetre.setLocationRelativeTo(null);
-        fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        new LabelFrame();
     }
 
-}
+    }
+
+
+

@@ -10,7 +10,44 @@ Rôle de chacun :
 - Jean-Juste : Modification des contacts, Création de contacts aléatoires, Affichage des contacts, Recherche de contacts
 - Esteban : Affichage des menus + tri
 - Benjamin : Ajout, suppression de contacts
-(Chacun a contribué à toutes les fonctionnalités du projet, il est donc difficile de définir qui a fait quoi exactement, car chacun a apporté un peu dans tous les codes. Nous avons donc mis l'acteur principal de chaque fonctionnalité, mais il n'était jamais seul.)
+(Chacun a contribué à toutes les fonctionnalités du projet, il est donc difficile de définir qui a fait quoi
+exactement, car chacun a apporté un peu dans tous les codes. Nous avons donc mis l'acteur principal de chaque
+fonctionnalité, mais il n'était jamais seul.)
 
 Le site qui nous a sauvé la vie pour le .jar : https://info.clg.qc.ca/java/divers/creer-jar-intellij-idea
 Sinon, la plupart des informations ont été trouvées sur internet avec Stackoverflow ou le README de l'exemple donné.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Vincent, si tu lis ce message c'est que tu as eu le courage de scoller jusqu'en bas,
+il y a un petit Easter Egg dans notre projet, tu peux le trouver en tapant
+"vincent"(sans les guillemets) dans le menu principal.
+Il affichera une fenêtre avec un message pour toi ! ^^

@@ -44,9 +44,6 @@ public class CustomUtils {
 
             return contact;
         } catch (ParseException e) {
-            System.out.println(
-                    ConsoleColors.RED + "Erreur lors de la génération d'un contact aléatoire" + ConsoleColors.DEFAULT);
-
             return null;
         }
     }
@@ -76,11 +73,14 @@ public class CustomUtils {
 
     public static String getRandomMail() {
         String[] domains = { "gmail.com", "hotmail.com", "yahoo.com", "laposte.net", "orange.fr" };
+        String[] mailChars = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
+                "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "." };
 
         String randomString = "";
         for (int i = 0; i < 10; i++) {
-            int randomDigit = (int) (Math.random() * 10);
-            randomString += randomDigit;
+            int randomCharIndex = (int) (Math.random() * mailChars.length);
+            String randomChar = mailChars[randomCharIndex];
+            randomString += randomChar;
         }
         randomString += "@";
 

@@ -17,7 +17,11 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * Ensemble des méthodes qui permettent d'afficher différents menus et gérer les choix de l'utilisateur
+ */
 public class Menu {
+
     public static Map<String, String> MONTHS = new HashMap<String, String>() {
         {
             put("Jan", "1");
@@ -35,11 +39,10 @@ public class Menu {
         }
     };
 
+    /**
+     * Affiche le menu principal et gère les choix de l'utilisateur
+     */
     public static void displayMenu() throws ParseException {
-        /**
-         * Affiche le menu principal
-         */
-
         csvToContactList();
         do {
             System.out.println(ConsoleColors.GREEN + "  -- Menu --");
@@ -95,7 +98,11 @@ public class Menu {
         } while (true);
     }
 
+    /**
+     * Crée un contact aléatoire et l'ajoute dans la liste de contacts
+     */
     public static void createRandomContact() throws Exception {
+
         if (Contact.contactList.size() < 20) {
             Contact randomContact;
             int tries = 0;
@@ -122,6 +129,11 @@ public class Menu {
         System.out.println(ConsoleColors.RED + "Vous avez déjà assez de contact" + ConsoleColors.DEFAULT);
     }
 
+    /**
+     * Affiche le menu de modification d'un contact
+     *
+     * @param contactToEdit Contact à modifier
+     */
     public static void displayEditMenu(Contact contactToEdit) {
         do {
             displayContact(contactToEdit);
@@ -227,6 +239,9 @@ public class Menu {
         } while (true);
     }
 
+    /**
+     * Demande à l'utilisateur le nom et le prénom du contact à modifier
+     */
     public static void edit() {
         System.out.println("Entrez le prénom du contact à modifier :");
         String firstnameInput = CustomUtils.getUserInput();
@@ -237,6 +252,12 @@ public class Menu {
         editContact(firstnameInput, lastnameInput);
     }
 
+    /**
+     * Affiche le menu de modification d'un contact si un contact a été trouvé
+     *
+     * @param firstName prénom du contact à modifier
+     * @param lastName nom du contact à modifier
+     */
     public static void editContact(String firstName, String lastName) {
         Contact contactToEdit = getContact(firstName, lastName);
 
@@ -248,6 +269,10 @@ public class Menu {
         }
     }
 
+    /**
+     * Demande à l'utilisateur le nom, le prénom, le numéro de téléphone, l'adresse email et la date de naissance du contact à créer
+     * Puis ajoute le contact à la liste de contacts
+     */
     public static void createContact() {
         Contact newContact = new Contact();
 
@@ -326,10 +351,18 @@ public class Menu {
         addToContactList(newContact);
     }
 
+    /**
+     * Affiche un message de fermeture du programme
+     */
     public static void quit() {
         System.out.println(ConsoleColors.RED + "Fermeture du menu..." + ConsoleColors.DEFAULT);
     }
 
+    /**
+     * Ajoute un contact à la liste de contacts
+     *
+     * @param contact Contact à ajouter
+     */
     public static void addToContactList(Contact contact) {
         try (PrintWriter bw = new PrintWriter(new BufferedWriter(new FileWriter("contacts.csv", true)))) {
             String contacString = contact.toString();
@@ -341,6 +374,9 @@ public class Menu {
         Contact.contactList.add(contact);
     }
 
+    /**
+     * Demande à l'utilisateur le nom et le prénom du contact à supprimer
+     */
     public static void delete() {
         csvToContactList();
 
@@ -351,6 +387,9 @@ public class Menu {
         deleteContact(firsnameInput, lastnameInput);
     }
 
+    /**
+     * Demande à l'utilisateur le numéro du contact à supprimer
+     */
     public static void deleteNumber() {
         csvToContactList();
 
@@ -359,6 +398,12 @@ public class Menu {
         deleteContactByNumber(numberInput);
     }
 
+    /**
+     * Si un contact avec le nom et le prénom donné existe, le supprime de la liste de contacts
+     *
+     * @param firstName Prénom du contact à supprimer
+     * @param lastName  Nom du contact à supprimer
+     */
     public static void deleteContact(String firstName, String lastName) {
         Contact contactToRemove = getContact(firstName, lastName);
         if (contactToRemove != null) {
@@ -374,6 +419,11 @@ public class Menu {
         }
     }
 
+    /**
+     * Si un contact du numéro donné existe, le supprime de la liste de contacts
+     *
+     * @param number Numéro du contact à supprimer
+     */
     public static void deleteContactByNumber(String number) {
         Contact contactToRemove = getContactByNumber(number);
         if (contactToRemove != null) {
@@ -390,23 +440,22 @@ public class Menu {
         }
     }
 
+    /**
+     * Supprime tous les contacts de la liste de contacts
+     */
     public static void deleteAll() {
         Contact.contactList.clear();
         contactListToCsv();
         System.out.println(ConsoleColors.YELLOW + "Tout les contacts ont été supprimés" + ConsoleColors.DEFAULT);
     }
 
-    public static void displaySpecificContact(String prenom, String nom) {
-        Contact contact = getContact(prenom, nom);
-        if (contact != null) {
-            displayContact(contact);
-            return;
-        }
-        System.out.println(
-                ConsoleColors.RED + "Contact du nom de " + prenom + " " + nom + " non trouvé \n"
-                        + ConsoleColors.DEFAULT);
-    }
-
+    /**
+     * Retourne le contact correspondant au nom et prénom donné
+     *
+     * @param prenom Prénom du contact à récupérer
+     * @param nom    Nom du contact à récupérer
+     * @return Contact correspondant au nom et prénom donné, ou null si aucun contact ne correspond
+     */
     static Contact getContact(String prenom, String nom) {
         for (Contact contact : Contact.contactList) {
             if (contact.getFirstname().equals(prenom) && contact.getLastname().equals(nom)) {
@@ -416,6 +465,12 @@ public class Menu {
         return null;
     }
 
+    /**
+     * Retourne le contact correspondant au numéro donné
+     *
+     * @param number Numéro du contact à récupérer
+     * @return Contact correspondant au numéro donné, ou null si aucun contact ne correspond
+     */
     static Contact getContactByNumber(String number) {
         for (Contact contact : Contact.contactList) {
             if (contact.getNumber().equals(number)) {
@@ -425,20 +480,29 @@ public class Menu {
         return null;
     }
 
-    public static void displayContact(Contact contactList) {
-        String contactString = contactList.toString();
+    /**
+     * Affiche les informations d'un contact
+     *
+     * @param contact Contact à afficher
+     */
+    public static void displayContact(Contact contact) {
+        String contactString = contact.toString();
         contactString = contactString.replace(Contact.SEPARATEUR, " | ");
         System.out.println(contactString);
     }
 
-    public static void displayAllContacts() throws ParseException {
-
+    /**
+     * Affiche tous les contacts de la liste de contacts
+     */
+    public static void displayAllContacts() {
         for (Contact contact : Contact.contactList) {
             displayContact(contact);
         }
-
     }
 
+    /**
+     * Enregistre tous les contacts de la liste de contacts dans le fichier contacts.csv
+     */
     static void contactListToCsv() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("contacts.csv"))) {
             for (Contact contact : Contact.contactList) {
@@ -451,6 +515,9 @@ public class Menu {
         }
     }
 
+    /**
+     * Charge tous les contacts du fichier contacts.csv dans la liste de contacts
+     */
     static void csvToContactList() {
         try (BufferedReader br = new BufferedReader(new FileReader("contacts.csv"))) {
             Contact.contactList.clear();
@@ -487,6 +554,9 @@ public class Menu {
         }
     }
 
+    /**
+     * Affiche le menu de tri des contacts et gère les choix de l'utilisateur
+     */
     public static void displayMenuTri() throws ParseException {
         do {
             System.out.println(ConsoleColors.GREEN + "  -- Menu tri --");
@@ -525,6 +595,9 @@ public class Menu {
         } while (true);
     }
 
+    /**
+     * Demande à l'utilisateur d'entrer une chaine de caractères et affiche les contacts dont le prénom commence par cette chaine
+     */
     public static void findContactByFirstName() {
         System.out.println("Entrez le début du prénom du contact à chercher :");
         String firstNameInput = CustomUtils.getUserInput();
@@ -548,6 +621,9 @@ public class Menu {
         }
     }
 
+    /**
+     * Demande à l'utilisateur d'entrer une chaine de caractères et affiche les contacts dont le numéro commence par cette chaine
+     */
     public static void findContactByNumber() {
         System.out.println("Entrez le début du numéro de téléphone du contact à chercher :");
         String numberInput = CustomUtils.getUserInput();
@@ -571,8 +647,11 @@ public class Menu {
         }
     }
 
+    /**
+     * Demande à l'utilisateur d'entrer une chaine de caractères et affiche les contacts dont le nom commence par cette chaine
+     */
     public static void findContactByLastname() {
-        System.out.println("Entrez le début du prénom du contact à chercher :");
+        System.out.println("Entrez le début du nom du contact à chercher :");
         String lastNameInput = CustomUtils.getUserInput();
 
         ArrayList<Contact> filteredList = Contact.contactList.stream()
@@ -594,6 +673,9 @@ public class Menu {
         }
     }
 
+    /**
+     * Demande à l'utilisateur d'entrer une chaine de caractères et affiche les contacts dont le mail commence par cette chaine
+     */
     public static void findContactByMail() {
         System.out.println("Entrez le début du mail du contact à chercher :");
         String mailInput = CustomUtils.getUserInput();
@@ -617,6 +699,9 @@ public class Menu {
         }
     }
 
+    /**
+     * Affiche le menu de tri et gère les choix de l'utilisateur
+     */
     public static void displayMenuTriOrder() throws ParseException {
         do {
             System.out.println(ConsoleColors.GREEN + "  -- Menu tri --");
@@ -641,6 +726,9 @@ public class Menu {
         } while (true);
     }
 
+    /**
+     * Affiche un message de confirmation de tri, selon le type et l'ordre de tri choisi
+     */
     public static void displayOrderMessage() {
         String orderText = null;
         if (Contact.isReversed) {
@@ -653,7 +741,11 @@ public class Menu {
                 + " par ordre " + orderText + ConsoleColors.DEFAULT);
     }
 
+    /**
+     * Affiche le menu de recherche de contact et gère les choix de l'utilisateur
+     */
     public static void displayMenuSearch() throws ParseException {
+
         do {
             System.out.println(ConsoleColors.GREEN + "  -- Menu de Recherche --");
             System.out.println("1. Rechercher par prénom");
@@ -687,6 +779,9 @@ public class Menu {
         } while (true);
     }
 
+    /**
+     * Affiche le menu de suppression de contact et gère les choix de l'utilisateur
+     */
     public static void displayMenuDelete() throws ParseException {
         do {
             System.out.println(ConsoleColors.GREEN + "  -- Menu de suppression --");

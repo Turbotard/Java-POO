@@ -502,7 +502,7 @@ public class Menu {
                     ConsoleColors.RED + "Aucun contact ne correspond à votre recherche !" + ConsoleColors.DEFAULT);
         }
     }
-    
+
     public static void findContactByMail() {
         System.out.println("Entrez le début du mail du contact à chercher :");
         String mailInput = CustomUtils.getUserInput();
@@ -557,8 +557,9 @@ public class Menu {
         } else {
             orderText = "croissant";
         }
-        
-        System.out.println(ConsoleColors.YELLOW + "Vous avez choisi le tri par " + Contact.contactListSort + " par ordre " + orderText + ConsoleColors.DEFAULT);
+
+        System.out.println(ConsoleColors.YELLOW + "Vous avez choisi le tri par " + Contact.contactListSort
+                + " par ordre " + orderText + ConsoleColors.DEFAULT);
     }
 
     public static void displayMenuSearch() throws ParseException {

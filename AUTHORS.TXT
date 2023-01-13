@@ -47,6 +47,7 @@ Sinon, la plupart des informations ont été trouvées sur internet avec Stackov
 
 
 
-Vincent, si tu lis ce message c'est que tu as eu le courage de scoller jusqu'en bas, il y a un petit Easter Egg
-dans notre projet, tu peux le trouver en tapant "vincent" dans le menu principal. Il affichera une fenêtre avec
-un message pour toi ! ^^
+Vincent, si tu lis ce message c'est que tu as eu le courage de scoller jusqu'en bas,
+il y a un petit Easter Egg dans notre projet, tu peux le trouver en tapant
+"vincent"(sans les guillemets) dans le menu principal.
+Il affichera une fenêtre avec un message pour toi ! ^^

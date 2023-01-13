@@ -16,3 +16,37 @@ fonctionnalité, mais il n'était jamais seul.)
 
 Le site qui nous a sauvé la vie pour le .jar : https://info.clg.qc.ca/java/divers/creer-jar-intellij-idea
 Sinon, la plupart des informations ont été trouvées sur internet avec Stackoverflow ou le README de l'exemple donné.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Vincent, si tu lis ce message c'est que tu as eu le courage de scoller jusqu'en bas, il y a un petit Easter Egg
+dans notre projet, tu peux le trouver en tapant "vincent" dans le menu principal. Il affichera une fenêtre avec
+un message pour toi ! ^^

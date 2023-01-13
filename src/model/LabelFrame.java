@@ -26,6 +26,8 @@ public class LabelFrame extends JFrame {
      *
      * La fenêtre a également un titre "Vincent met nous un 20/20 !!" et une taille de 600x700.
      *
+     * Un son est joué 10 fois lors de l'ouverture de la fenêtre.
+     *
      * La fenêtre doit être quittée pour fermer le programme.
      */
     public LabelFrame() {

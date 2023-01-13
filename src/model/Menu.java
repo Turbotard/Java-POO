@@ -1,6 +1,6 @@
 package model;
 
-import java.awt.*;
+import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,7 +20,7 @@ import java.awt.Color;
 /**
  * Ensemble des méthodes qui permettent d'afficher différents menus et gérer les choix de l'utilisateur
  */
-public class Menu extends JFrame {
+public class Menu {
 
     public static Map<String, String> MONTHS = new HashMap<String, String>() {
         {
@@ -90,7 +90,6 @@ public class Menu extends JFrame {
                 case "q":
                     quit();
                     return;
-
                 default:
                     System.out.println(ConsoleColors.RED + "Veuillez entrer une option valide" + ConsoleColors.DEFAULT);
                     break;
@@ -818,6 +817,3 @@ public class Menu extends JFrame {
     }
 
     }
-
-
-
